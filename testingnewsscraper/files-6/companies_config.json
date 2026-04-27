@@ -1,0 +1,136 @@
+{
+    "_meta": {
+        "description": "STOXX Europe 600 / Euro Stoxx 50 component configuration for GDELT downloader",
+        "version": "1.0",
+        "last_updated": "2025-02-14",
+        "instructions": [
+            "Each company has: query (GDELT search term), ticker, name, from_date, to_date",
+            "from_date: first date this company is in the index (YYYY-MM-DD)",
+            "to_date: last date this company is in the index (YYYY-MM-DD), or 'current' if still in",
+            "query: the search term sent to GDELT - use the most recognizable name",
+            "ticker: Bloomberg/Yahoo ticker for later data matching",
+            "sector: GICS sector for stratified analysis",
+            "country: ISO 2-letter country code",
+            "cap_group: 'large', 'mid', 'small' for STOXX 600 stratification",
+            "You can add multiple query variants per company using the 'alt_queries' field"
+        ]
+    },
+    "index": "STOXX Europe 600",
+    "data_start": "2024-08-01",
+    "data_end": "2025-12-31",
+    "companies": [
+        {
+            "query": "ASML",
+            "alt_queries": ["ASML Holding"],
+            "ticker": "ASML.AS",
+            "name": "ASML Holding",
+            "sector": "Information Technology",
+            "country": "NL",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "SAP SE",
+            "alt_queries": ["SAP"],
+            "ticker": "SAP.DE",
+            "name": "SAP SE",
+            "sector": "Information Technology",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "LVMH",
+            "alt_queries": ["Louis Vuitton", "Moet Hennessy"],
+            "ticker": "MC.PA",
+            "name": "LVMH",
+            "sector": "Consumer Discretionary",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Siemens AG",
+            "alt_queries": ["Siemens"],
+            "ticker": "SIE.DE",
+            "name": "Siemens",
+            "sector": "Industrials",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "TotalEnergies",
+            "alt_queries": ["Total Energies"],
+            "ticker": "TTE.PA",
+            "name": "TotalEnergies",
+            "sector": "Energy",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Airbus",
+            "alt_queries": [],
+            "ticker": "AIR.PA",
+            "name": "Airbus",
+            "sector": "Industrials",
+            "country": "NL",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Allianz",
+            "alt_queries": ["Allianz SE"],
+            "ticker": "ALV.DE",
+            "name": "Allianz",
+            "sector": "Financials",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Volkswagen",
+            "alt_queries": ["VW"],
+            "ticker": "VOW3.DE",
+            "name": "Volkswagen",
+            "sector": "Consumer Discretionary",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+
+        {
+            "_comment": "=== EXAMPLE: Company that LEFT the index ===",
+            "query": "Worldline",
+            "alt_queries": [],
+            "ticker": "WLN.PA",
+            "name": "Worldline",
+            "sector": "Information Technology",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2024-12-20"
+        },
+        {
+            "_comment": "=== EXAMPLE: Company that JOINED the index ===",
+            "query": "Galderma",
+            "alt_queries": ["Galderma Group"],
+            "ticker": "GALD.SW",
+            "name": "Galderma",
+            "sector": "Health Care",
+            "country": "CH",
+            "cap_group": "mid",
+            "from_date": "2024-09-23",
+            "to_date": "current"
+        }
+    ]
+}

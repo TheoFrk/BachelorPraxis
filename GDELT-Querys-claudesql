@@ -1,0 +1,510 @@
+-- ============================================================================
+-- GDELT BigQuery Queries für Bachelor-Thesis: Euro STOXX 600 Sentiment-Analyse
+-- Autor: Theodor Ferdinand Frank
+-- Zeitraum: August 2024 – Dezember 2025
+-- ============================================================================
+--
+-- KRITISCHE KORREKTUREN gegenüber der ChatGPT-Version:
+--
+-- 1. LÄNDERCODES FALSCH: GDELT verwendet ZWEI verschiedene Code-Systeme!
+--    - ActionGeo_CountryCode → FIPS 10-4 (2-Buchstaben): Deutschland = 'GM', nicht 'DEU'
+--    - Actor1/2CountryCode   → CAMEO (3-Buchstaben): Deutschland = 'DEU'
+--    ChatGPT hat ISO-Codes mit FIPS-Codes gemischt → Query liefert KEINE Ergebnisse
+--    für viele Länder (z.B. 'DEU' existiert nicht als Geo-Code in GDELT).
+--
+-- 2. FEHLENDE STOXX-600-LÄNDER: Der Index umfasst 17 europäische Länder,
+--    ChatGPT hatte nur 10 (davon einige mit falschen Codes).
+--
+-- 3. LIMIT 500: Für 17 Monate Daten über Großmächte völlig unbrauchbar.
+--    Bei ~300M Events/Jahr und breitem Länderfilter ergibt das Millionen von Zeilen.
+--    → Exportstrategie statt LIMIT verwenden (siehe Hinweise unten).
+--
+-- 4. KEIN WIRTSCHAFTSFILTER: Die ChatGPT-Query zieht ALLE Events
+--    (Militärkonflikte, Diplomatie, Sport...). Für Finanzmarkt-Relevanz
+--    brauchen wir thematische Filter.
+--
+-- 5. GKG FEHLT KOMPLETT: Die Global Knowledge Graph Tabelle enthält die
+--    eigentlichen Sentiment-Scores (V2Tone), Themen und Organisations-
+--    nennungen – das ist der relevanteste Teil für deine Thesis.
+--
+-- ============================================================================
+-- REFERENZ: Ländercodes STOXX Europe 600 Konstituenten-Länder
+-- ============================================================================
+--
+-- Land              | FIPS 10-4 (Geo) | CAMEO (Actor)
+-- ==================|=================|==============
+-- Österreich        | AU              | AUT
+-- Belgien           | BE              | BEL
+-- Dänemark          | DA              | DNK
+-- Finnland          | FI              | FIN
+-- Frankreich        | FR              | FRA
+-- Deutschland       | GM              | DEU
+-- Irland            | EI              | IRL
+-- Italien           | IT              | ITA
+-- Luxemburg         | LU              | LUX
+-- Niederlande       | NL              | NLD
+-- Norwegen          | NO              | NOR
+-- Polen             | PL              | POL
+-- Portugal          | PO              | PRT
+-- Spanien           | SP              | ESP
+-- Schweden          | SW              | SWE
+-- Schweiz           | SZ              | CHE
+-- UK                | UK              | GBR
+-- ------------------+-----------------+--------------
+-- USA (global)      | US              | USA
+-- ============================================================================
+
+
+-- ============================================================================
+-- QUERY 1: KORRIGIERTE Events + Mentions (ChatGPT-Fix)
+-- ============================================================================
+-- Diese Query entspricht dem, was du ursprünglich wolltest, aber mit
+-- korrekten Codes und sinnvolleren Filtern.
+--
+-- KOSTEN-WARNUNG: Diese Query scannt ~1.5-3 TB Daten.
+--   → Geschätzte Kosten: $7-15 (BigQuery: $6.25/TB nach Free Tier).
+--   → Tipp: Zuerst mit einem kürzeren Zeitraum testen (z.B. 1 Monat).
+--
+-- EXPORT-STRATEGIE statt LIMIT:
+--   → BigQuery → "Save Results" → Google Cloud Storage (GCS) als CSV/JSON
+--   → Oder: bq extract-Befehl in der gcloud CLI
+--   → Für Python: google-cloud-bigquery Library mit .to_dataframe()
+-- ============================================================================
+
+#standardSQL
+WITH events AS (
+  SELECT
+    GLOBALEVENTID,
+    PARSE_DATE('%Y%m%d', CAST(SQLDATE AS STRING))  AS event_date,
+    ActionGeo_CountryCode                           AS geo_country_fips,
+    Actor1CountryCode                               AS actor1_country_cameo,
+    Actor2CountryCode                               AS actor2_country_cameo,
+    Actor1Name,
+    Actor2Name,
+    EventCode,
+    EventBaseCode,
+    EventRootCode,
+    QuadClass,
+    GoldsteinScale,
+    NumMentions,
+    NumSources,
+    NumArticles,
+    AvgTone
+  FROM `gdelt-bq.gdeltv2.events_partitioned`
+  WHERE _PARTITIONTIME BETWEEN TIMESTAMP('2024-08-01') AND TIMESTAMP('2025-12-31')
+),
+
+mentions AS (
+  SELECT
+    GLOBALEVENTID,
+    MentionIdentifier   AS article_url,
+    Confidence,
+    MentionDocTone
+  FROM `gdelt-bq.gdeltv2.eventmentions_partitioned`
+  WHERE _PARTITIONTIME BETWEEN TIMESTAMP('2024-08-01') AND TIMESTAMP('2025-12-31')
+    AND Confidence >= 50  -- Nur Mentions mit mindestens 50% Confidence
+)
+
+SELECT
+  e.event_date,
+  e.geo_country_fips,
+  e.actor1_country_cameo,
+  e.actor2_country_cameo,
+  e.Actor1Name,
+  e.Actor2Name,
+  e.EventCode,
+  e.EventBaseCode,
+  e.EventRootCode,
+  e.QuadClass,
+  e.GoldsteinScale,
+  e.NumMentions,
+  e.NumSources,
+  e.NumArticles,
+  e.AvgTone,
+  m.MentionDocTone,
+  m.Confidence,
+  m.article_url
+FROM events e
+LEFT JOIN mentions m
+  ON e.GLOBALEVENTID = m.GLOBALEVENTID
+WHERE
+  -- FIPS 10-4 für Geo-Felder (ActionGeo = wo das Event stattfand)
+  e.geo_country_fips IN (
+    'AU','BE','DA','FI','FR','GM','EI','IT','LU',
+    'NL','NO','PL','PO','SP','SW','SZ','UK',
+    'US'  -- USA als globaler Einflussfaktor
+  )
+  -- OPTIONAL: Ökonomisch relevante Events filtern (CAMEO Root Codes)
+  -- Auskommentieren für breitere Abdeckung:
+  -- AND e.EventRootCode IN (
+  --   '01',  -- Make Public Statement
+  --   '02',  -- Appeal
+  --   '03',  -- Express Intent to Cooperate
+  --   '04',  -- Consult
+  --   '05',  -- Diplomatic Cooperation
+  --   '06',  -- Material Cooperation
+  --   '07',  -- Provide Aid
+  --   '08',  -- Yield
+  --   '10',  -- Demand
+  --   '12',  -- Reject
+  --   '13',  -- Threaten
+  --   '14',  -- Protest
+  --   '17'   -- Coerce (inkl. Sanktionen)
+  -- )
+ORDER BY e.event_date
+-- KEIN LIMIT hier! → Export über BigQuery UI oder API
+-- Für Tests: LIMIT 10000
+;
+
+
+-- ============================================================================
+-- QUERY 2: GKG – Wirtschafts-/Finanz-Themen mit Sentiment (EMPFOHLEN)
+-- ============================================================================
+-- Die GKG-Tabelle ist für deine Thesis DEUTLICH relevanter als die Events-
+-- Tabelle, weil sie:
+--   (a) Dokumenten-Level Sentiment-Scores enthält (V2Tone)
+--   (b) Thematische Tags hat (ECON_*, TAX_*, SANCTIONS, etc.)
+--   (c) Organisationsnennungen enthält (V2Organizations)
+--   (d) Direkte URLs zu den Quellartikeln liefert (DocumentIdentifier)
+--
+-- V2Tone Format: "tone,pos_score,neg_score,polarity,activity_ref_density,
+--                  self_group_ref_density,word_count"
+-- → tone = pos_score - neg_score (Netto-Sentiment)
+--
+-- KOSTEN-WARNUNG: GKG ist GRÖSSER als Events (~2.5 TB/Jahr).
+--   → Geschätzte Kosten: $10-25 für den vollen Zeitraum.
+--   → Zuerst mit 1 Woche testen!
+-- ============================================================================
+
+#standardSQL
+SELECT
+  DATE(_PARTITIONTIME)                                           AS pub_date,
+  DocumentIdentifier                                             AS article_url,
+  -- Sentiment-Scores extrahieren
+  SAFE_CAST(SPLIT(V2Tone, ',')[SAFE_OFFSET(0)] AS FLOAT64)      AS tone,
+  SAFE_CAST(SPLIT(V2Tone, ',')[SAFE_OFFSET(1)] AS FLOAT64)      AS positive_score,
+  SAFE_CAST(SPLIT(V2Tone, ',')[SAFE_OFFSET(2)] AS FLOAT64)      AS negative_score,
+  SAFE_CAST(SPLIT(V2Tone, ',')[SAFE_OFFSET(3)] AS FLOAT64)      AS polarity,
+  SAFE_CAST(SPLIT(V2Tone, ',')[SAFE_OFFSET(6)] AS INT64)        AS word_count,
+  -- Themen und Entitäten (semi-strukturiert, muss nachgelagert geparsed werden)
+  V2Themes,
+  V2Organizations,
+  V2Locations,
+  V2Persons
+FROM `gdelt-bq.gdeltv2.gkg_partitioned`
+WHERE
+  _PARTITIONTIME BETWEEN TIMESTAMP('2024-08-01') AND TIMESTAMP('2025-12-31')
+  -- Wirtschafts-/Finanzthemen filtern
+  AND (
+       V2Themes LIKE '%ECON_%'              -- Alle Wirtschaftsthemen
+    OR V2Themes LIKE '%TAX_%'               -- Steuern
+    OR V2Themes LIKE '%SANCTIONS%'          -- Sanktionen
+    OR V2Themes LIKE '%TRADE%'              -- Handel
+    OR V2Themes LIKE '%CENTRAL_BANK%'       -- Zentralbanken
+    OR V2Themes LIKE '%INTEREST_RATE%'      -- Zinsen
+    OR V2Themes LIKE '%INFLATION%'          -- Inflation
+    OR V2Themes LIKE '%RECESSION%'          -- Rezession
+    OR V2Themes LIKE '%STOCK%'              -- Aktienmarkt
+    OR V2Themes LIKE '%BANKRUPTCY%'         -- Insolvenz
+    OR V2Themes LIKE '%CURRENCY%'           -- Währung
+    OR V2Themes LIKE '%DEBT%'              -- Schulden
+    OR V2Themes LIKE '%ENERGY%'             -- Energie (wichtig für EU-Märkte)
+    OR V2Themes LIKE '%OIL%'               -- Öl
+    OR V2Themes LIKE '%REGULATION%'         -- Regulierung
+  )
+  -- Geographischer Filter: Mindestens ein europäisches/US-Land erwähnt
+  AND (
+       V2Locations LIKE '%#FR#%'
+    OR V2Locations LIKE '%#GM#%'
+    OR V2Locations LIKE '%#UK#%'
+    OR V2Locations LIKE '%#IT#%'
+    OR V2Locations LIKE '%#SP#%'
+    OR V2Locations LIKE '%#NL#%'
+    OR V2Locations LIKE '%#BE#%'
+    OR V2Locations LIKE '%#SW#%'
+    OR V2Locations LIKE '%#SZ#%'
+    OR V2Locations LIKE '%#AU#%'
+    OR V2Locations LIKE '%#DA#%'
+    OR V2Locations LIKE '%#FI#%'
+    OR V2Locations LIKE '%#EI#%'
+    OR V2Locations LIKE '%#NO#%'
+    OR V2Locations LIKE '%#PL#%'
+    OR V2Locations LIKE '%#PO#%'
+    OR V2Locations LIKE '%#LU#%'
+    OR V2Locations LIKE '%#US#%'
+  )
+ORDER BY pub_date
+-- Für Tests: LIMIT 10000
+;
+
+
+-- ============================================================================
+-- QUERY 3: GKG – Tägliche Sentiment-Aggregation nach Land (ANALYTICS)
+-- ============================================================================
+-- Diese Query liefert dir direkt eine Zeitreihe: pro Tag und Land den
+-- durchschnittlichen Tone-Score aus wirtschaftsrelevanten Artikeln.
+-- Das ist unmittelbar als Input für deine Sentiment-Zeitreihe nutzbar
+-- (vgl. Gleichung 9-10 in deiner Seminararbeit).
+--
+-- Ergebnis: ~17 Länder × ~520 Tage ≈ ~8.840 Zeilen → sehr handlich.
+-- ============================================================================
+
+#standardSQL
+WITH gkg_econ AS (
+  SELECT
+    DATE(_PARTITIONTIME)                                           AS pub_date,
+    DocumentIdentifier                                             AS url,
+    SAFE_CAST(SPLIT(V2Tone, ',')[SAFE_OFFSET(0)] AS FLOAT64)      AS tone,
+    SAFE_CAST(SPLIT(V2Tone, ',')[SAFE_OFFSET(1)] AS FLOAT64)      AS pos_score,
+    SAFE_CAST(SPLIT(V2Tone, ',')[SAFE_OFFSET(2)] AS FLOAT64)      AS neg_score,
+    SAFE_CAST(SPLIT(V2Tone, ',')[SAFE_OFFSET(6)] AS INT64)        AS word_count,
+    V2Locations
+  FROM `gdelt-bq.gdeltv2.gkg_partitioned`
+  WHERE
+    _PARTITIONTIME BETWEEN TIMESTAMP('2024-08-01') AND TIMESTAMP('2025-12-31')
+    AND (
+         V2Themes LIKE '%ECON_%'
+      OR V2Themes LIKE '%TAX_%'
+      OR V2Themes LIKE '%SANCTIONS%'
+      OR V2Themes LIKE '%CENTRAL_BANK%'
+      OR V2Themes LIKE '%INTEREST_RATE%'
+      OR V2Themes LIKE '%INFLATION%'
+      OR V2Themes LIKE '%STOCK%'
+      OR V2Themes LIKE '%TRADE%'
+    )
+),
+
+-- Locations aufsplitten und FIPS-Code extrahieren
+locations_unnested AS (
+  SELECT
+    g.pub_date,
+    g.url,
+    g.tone,
+    g.pos_score,
+    g.neg_score,
+    g.word_count,
+    -- FIPS Country Code aus V2Locations extrahieren (Format: Type#Name#CountryCode#...)
+    REGEXP_EXTRACT(loc, r'^[1-5]#.*?#(.*?)#') AS country_fips
+  FROM gkg_econ g,
+  UNNEST(SPLIT(g.V2Locations, ';')) AS loc
+)
+
+SELECT
+  pub_date,
+  country_fips,
+  COUNT(DISTINCT url)   AS num_articles,
+  AVG(tone)             AS avg_tone,
+  AVG(pos_score)        AS avg_positive,
+  AVG(neg_score)        AS avg_negative,
+  STDDEV(tone)          AS stddev_tone,
+  AVG(word_count)       AS avg_word_count
+FROM locations_unnested
+WHERE country_fips IN (
+  'AU','BE','DA','FI','FR','GM','EI','IT','LU',
+  'NL','NO','PL','PO','SP','SW','SZ','UK','US'
+)
+GROUP BY pub_date, country_fips
+ORDER BY pub_date, country_fips
+;
+
+
+-- ============================================================================
+-- QUERY 4: Artikel-URLs für FinBERT/LLM-Pipeline
+-- ============================================================================
+-- Diese Query liefert die Artikel-URLs, die du dann mit deiner
+-- FinBERT/LLM-Pipeline verarbeiten kannst. Sie fokussiert auf Artikel,
+-- die STOXX-600-relevante Organisationen und Wirtschaftsthemen erwähnen.
+--
+-- Workflow:
+-- 1. URLs aus dieser Query exportieren
+-- 2. Artikel-Texte crawlen (newspaper3k, trafilatura, etc.)
+-- 3. FinBERT/LLM Sentiment-Extraktion
+-- 4. Entity-Aware Aggregation (vgl. Abschnitt 5.4.2 deiner Seminararbeit)
+-- ============================================================================
+
+#standardSQL
+SELECT
+  DATE(_PARTITIONTIME)                                           AS pub_date,
+  DocumentIdentifier                                             AS article_url,
+  SAFE_CAST(SPLIT(V2Tone, ',')[SAFE_OFFSET(0)] AS FLOAT64)      AS gdelt_tone,
+  SAFE_CAST(SPLIT(V2Tone, ',')[SAFE_OFFSET(6)] AS INT64)        AS word_count,
+  V2Organizations,
+  V2Themes,
+  -- Quellendomäne extrahieren
+  NET.REG_DOMAIN(DocumentIdentifier)                             AS source_domain
+FROM `gdelt-bq.gdeltv2.gkg_partitioned`
+WHERE
+  _PARTITIONTIME BETWEEN TIMESTAMP('2024-08-01') AND TIMESTAMP('2025-12-31')
+  -- Wirtschaftsthemen
+  AND (
+       V2Themes LIKE '%ECON_%'
+    OR V2Themes LIKE '%STOCK%'
+    OR V2Themes LIKE '%CENTRAL_BANK%'
+    OR V2Themes LIKE '%INTEREST_RATE%'
+    OR V2Themes LIKE '%TRADE%'
+  )
+  -- Europäischer Bezug
+  AND (
+       V2Locations LIKE '%#FR#%'
+    OR V2Locations LIKE '%#GM#%'
+    OR V2Locations LIKE '%#UK#%'
+    OR V2Locations LIKE '%#IT#%'
+    OR V2Locations LIKE '%#SP#%'
+    OR V2Locations LIKE '%#NL#%'
+    OR V2Locations LIKE '%#BE#%'
+    OR V2Locations LIKE '%#SW#%'
+    OR V2Locations LIKE '%#SZ#%'
+    OR V2Locations LIKE '%#US#%'
+  )
+  -- Mindest-Artikellänge (kurze Snippets filtern)
+  AND SAFE_CAST(SPLIT(V2Tone, ',')[SAFE_OFFSET(6)] AS INT64) >= 100
+ORDER BY pub_date
+-- Für Tests: LIMIT 10000
+;
+
+
+-- ============================================================================
+-- QUERY 5: Schnelltest – Datenvolumen & Kosten abschätzen
+-- ============================================================================
+-- IMMER ZUERST AUSFÜHREN! Zeigt dir, wie viele Zeilen zu erwarten sind,
+-- bevor du teure Full-Scans machst.
+-- ============================================================================
+
+#standardSQL
+-- 5a: Events-Volumen pro Monat
+SELECT
+  FORMAT_DATE('%Y-%m', PARSE_DATE('%Y%m%d', CAST(SQLDATE AS STRING))) AS monat,
+  COUNT(*) AS num_events
+FROM `gdelt-bq.gdeltv2.events_partitioned`
+WHERE
+  _PARTITIONTIME BETWEEN TIMESTAMP('2024-08-01') AND TIMESTAMP('2025-12-31')
+  AND ActionGeo_CountryCode IN (
+    'AU','BE','DA','FI','FR','GM','EI','IT','LU',
+    'NL','NO','PL','PO','SP','SW','SZ','UK','US'
+  )
+GROUP BY monat
+ORDER BY monat
+;
+
+-- 5b: GKG-Volumen pro Monat (nur Wirtschaftsthemen)
+SELECT
+  FORMAT_DATE('%Y-%m', DATE(_PARTITIONTIME)) AS monat,
+  COUNT(*) AS num_articles
+FROM `gdelt-bq.gdeltv2.gkg_partitioned`
+WHERE
+  _PARTITIONTIME BETWEEN TIMESTAMP('2024-08-01') AND TIMESTAMP('2025-12-31')
+  AND (V2Themes LIKE '%ECON_%' OR V2Themes LIKE '%STOCK%')
+GROUP BY monat
+ORDER BY monat
+;
+
+
+-- ============================================================================
+-- HINWEISE ZUR WEITERVERARBEITUNG
+-- ============================================================================
+--
+-- 1. EXPORT-OPTIONEN:
+--    a) BigQuery UI → "Save Results" → GCS als CSV (bis 1 GB)
+--    b) bq extract → Google Cloud Storage → Download
+--    c) Python: google-cloud-bigquery → .to_dataframe() → .to_parquet()
+--    d) Für große Exports: Destination Table setzen, dann exportieren
+--
+-- 2. KOSTEN MINIMIEREN:
+--    → Immer _PARTITIONTIME filtern (partitionierte Tabellen!)
+--    → SELECT nur benötigte Spalten (nicht SELECT *)
+--    → Query 5 zuerst ausführen für Volumenabschätzung
+--    → Free Tier: 1 TB/Monat kostenlos, dann $6.25/TB
+--
+-- 3. FÜR DEINE FINBERT-PIPELINE:
+--    → Query 4 liefert URLs → Crawl mit trafilatura/newspaper3k
+--    → GDELT V2Tone als Baseline-Vergleich (kein LLM nötig)
+--    → Entity-Mapping: V2Organizations enthält Firmennamen
+--    → Zeitstempel: _PARTITIONTIME ist der GKG-Verarbeitungszeitpunkt,
+--      NICHT der Publikationszeitpunkt! → Look-Ahead-Bias beachten!
+--
+-- 4. WICHTIGE EINSCHRÄNKUNGEN VON GDELT:
+--    → GDELT ist ein NACHRICHTEN-Dataset, kein Finanzdaten-Feed.
+--      Es erfasst keine Ad-hoc-Meldungen direkt.
+--    → V2Tone ist ein einfacher lexikon-basierter Score, kein
+--      FinBERT-Level Sentiment. Nutze ihn als Baseline, nicht als Signal.
+--    → Survivorship Bias: Gelöschte Artikel fehlen retroaktiv.
+--    → Duplikate: Nachrichtenagenturen werden von vielen Outlets
+--      übernommen → Deduplizierung über NET.REG_DOMAIN() oder
+--      Textähnlichkeit nötig.
+--    → Für deinen Delta-Leakage-Ansatz: GDELT-Daten waren mit hoher
+--      Wahrscheinlichkeit im Training moderner LLMs enthalten!
+--
+-- 5. ALTERNATIVE/ERGÄNZENDE DATENQUELLEN (via Commerzbank):
+--    → Bloomberg BSRCH für Ad-hoc-Meldungen (EQS, DGAP)
+--    → Refinitiv News Analytics (TRNA) für vorgefertigte Sentiment-Scores
+--    → SEC EDGAR (für US-Komponenten, falls relevant)
+--    → EQS/DGAP API für europäische regulatorische Meldungen
+--
+-- ============================================================================
+
+
+GEMINI:
+SELECT
+  DATE(_PARTITIONTIME)                                           AS pub_date,
+  DocumentIdentifier                                             AS article_url,
+  -- Sentiment-Scores extrahieren
+  SAFE_CAST(SPLIT(V2Tone, ',')[SAFE_OFFSET(0)] AS FLOAT64)      AS tone,
+  SAFE_CAST(SPLIT(V2Tone, ',')[SAFE_OFFSET(1)] AS FLOAT64)      AS positive_score,
+  SAFE_CAST(SPLIT(V2Tone, ',')[SAFE_OFFSET(2)] AS FLOAT64)      AS negative_score,
+  SAFE_CAST(SPLIT(V2Tone, ',')[SAFE_OFFSET(3)] AS FLOAT64)      AS polarity,
+  SAFE_CAST(SPLIT(V2Tone, ',')[SAFE_OFFSET(6)] AS INT64)        AS word_count,
+  -- Themen und Entitäten
+  V2Themes,
+  V2Organizations,
+  V2Locations,
+  V2Persons
+FROM `gdelt-bq.gdeltv2.gkg_partitioned`
+WHERE
+  _PARTITIONTIME BETWEEN TIMESTAMP('2024-08-01') AND TIMESTAMP('2025-12-31')
+  
+  -- NEU: Filter auf easyJet (deckt verschiedene Schreibweisen ab)
+  AND (
+       LOWER(V2Organizations) LIKE '%easyjet%' 
+    OR LOWER(V2Themes) LIKE '%easyjet%'
+  )
+
+  -- Wirtschafts-/Finanzthemen filtern
+  AND (
+       V2Themes LIKE '%ECON_%'
+    OR V2Themes LIKE '%TAX_%'
+    OR V2Themes LIKE '%SANCTIONS%'
+    OR V2Themes LIKE '%TRADE%'
+    OR V2Themes LIKE '%CENTRAL_BANK%'
+    OR V2Themes LIKE '%INTEREST_RATE%'
+    OR V2Themes LIKE '%INFLATION%'
+    OR V2Themes LIKE '%RECESSION%'
+    OR V2Themes LIKE '%STOCK%'
+    OR V2Themes LIKE '%BANKRUPTCY%'
+    OR V2Themes LIKE '%CURRENCY%'
+    OR V2Themes LIKE '%DEBT%'
+    OR V2Themes LIKE '%ENERGY%'
+    OR V2Themes LIKE '%OIL%'
+    OR V2Themes LIKE '%REGULATION%'
+  )
+  -- Geographischer Filter
+  AND (
+       V2Locations LIKE '%#FR#%'
+    OR V2Locations LIKE '%#GM#%'
+    OR V2Locations LIKE '%#UK#%'
+    OR V2Locations LIKE '%#IT#%'
+    OR V2Locations LIKE '%#SP#%'
+    OR V2Locations LIKE '%#NL#%'
+    OR V2Locations LIKE '%#BE#%'
+    OR V2Locations LIKE '%#SW#%'
+    OR V2Locations LIKE '%#SZ#%'
+    OR V2Locations LIKE '%#AU#%'
+    OR V2Locations LIKE '%#DA#%'
+    OR V2Locations LIKE '%#FI#%'
+    OR V2Locations LIKE '%#EI#%'
+    OR V2Locations LIKE '%#NO#%'
+    OR V2Locations LIKE '%#PL#%'
+    OR V2Locations LIKE '%#PO#%'
+    OR V2Locations LIKE '%#LU#%'
+    OR V2Locations LIKE '%#US#%'
+  )
+ORDER BY pub_date;

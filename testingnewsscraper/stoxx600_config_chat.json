@@ -1,0 +1,5513 @@
+{
+    "_meta": {
+        "description": "Index component + macro event configuration for GDELT downloader",
+        "version": "2.1",
+        "last_updated": "2026-02-18",
+        "instructions": [
+            "type: 'company' = firm-level news, 'macro' = market-wide events",
+            "from_date / to_date: when this entry is active (for index composition changes)",
+            "to_date: 'current' means still active today",
+            "alt_queries: additional GDELT search terms for better recall",
+            "",
+            "HOW TO ADD A NEW COMPANY: Copy any company block, change query/ticker/name/dates",
+            "HOW TO HANDLE INDEX CHANGES:",
+            "  Company leaves -> set to_date to exit date (e.g. '2024-12-20')",
+            "  Company joins  -> set from_date to entry date (e.g. '2025-03-24')",
+            "",
+            "LOG FIXES APPLIED (2026-02-18):",
+            "  - Removed special chars from queries causing Invalid JSON (Alk-Abello,",
+            "    Huber+Suhner, Tate & Lyle, Sparebank 1 Sor-Norge, etc.)",
+            "  - Improved alt_queries for 40+ companies with 0 GDELT data points",
+            "  - Fixed mBank (was 'MBank'), Banca Popolare Sondrio (was 'BCA Popolare...')",
+            "  - Deduplicated all duplicate entries (Neoen, Munters, Fugro, Playtech, Redcare)",
+            "  - Expanded from 116 to ~460 STOXX Europe 600 constituents"
+        ]
+    },
+    "index": "STOXX Europe 600",
+    "data_start": "2024-08-01",
+    "data_end": "2025-12-31",
+    "companies": [
+        {
+            "query": "AP Moller-Maersk",
+            "alt_queries": [
+                "Maersk shipping"
+            ],
+            "ticker": "MAERSKb.CO",
+            "name": "A.P. Moller-Maersk",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DK",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "ABB",
+            "alt_queries": [],
+            "ticker": "ABBN.S",
+            "name": "ABB Ltd",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "CH",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "ACS Group",
+            "alt_queries": [],
+            "ticker": "ACS.MC",
+            "name": "ACS SA",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "ES",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Aegon",
+            "alt_queries": [],
+            "ticker": "AGEG.AS",
+            "name": "Aegon NV",
+            "type": "company",
+            "sector": "Financials",
+            "country": "NL",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "AIB Group",
+            "alt_queries": [],
+            "ticker": "AIB.I",
+            "name": "AIB Group plc",
+            "type": "company",
+            "sector": "Financials",
+            "country": "IE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Air Liquide",
+            "alt_queries": [],
+            "ticker": "AIRP.PA",
+            "name": "Air Liquide",
+            "type": "company",
+            "sector": "Materials",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Airbus",
+            "alt_queries": [],
+            "ticker": "AIR.PA",
+            "name": "Airbus",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "NL",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Alfa Laval",
+            "alt_queries": [],
+            "ticker": "ALFA.ST",
+            "name": "Alfa Laval AB",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "SE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Allianz",
+            "alt_queries": [
+                "Allianz SE"
+            ],
+            "ticker": "ALV.DE",
+            "name": "Allianz",
+            "type": "company",
+            "sector": "Financials",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Amadeus IT",
+            "alt_queries": [],
+            "ticker": "AMS.MC",
+            "name": "Amadeus IT Group",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "ES",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Anglo American",
+            "alt_queries": [],
+            "ticker": "AAL.L",
+            "name": "Anglo American",
+            "type": "company",
+            "sector": "Materials",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Anheuser-Busch InBev",
+            "alt_queries": [
+                "AB InBev beer"
+            ],
+            "ticker": "ABI.BR",
+            "name": "Anheuser-Busch InBev",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "BE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "ArcelorMittal",
+            "alt_queries": [],
+            "ticker": "MT.AS",
+            "name": "ArcelorMittal",
+            "type": "company",
+            "sector": "Materials",
+            "country": "LU",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "ASML",
+            "alt_queries": [
+                "ASML Holding"
+            ],
+            "ticker": "ASML.AS",
+            "name": "ASML Holding",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "NL",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Generali",
+            "alt_queries": [],
+            "ticker": "GASI.MI",
+            "name": "Assicurazioni Generali",
+            "type": "company",
+            "sector": "Financials",
+            "country": "IT",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "AstraZeneca",
+            "alt_queries": [],
+            "ticker": "AZN.L",
+            "name": "AstraZeneca",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Atlas Copco",
+            "alt_queries": [],
+            "ticker": "ATCOa.ST",
+            "name": "Atlas Copco A",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "SE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Aviva",
+            "alt_queries": [],
+            "ticker": "AV.L",
+            "name": "Aviva plc",
+            "type": "company",
+            "sector": "Financials",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "AXA",
+            "alt_queries": [],
+            "ticker": "AXAF.PA",
+            "name": "AXA SA",
+            "type": "company",
+            "sector": "Financials",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "BAE Systems",
+            "alt_queries": [],
+            "ticker": "BAES.L",
+            "name": "BAE Systems",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Banco Santander",
+            "alt_queries": [],
+            "ticker": "SAN.MC",
+            "name": "Banco Santander",
+            "type": "company",
+            "sector": "Financials",
+            "country": "ES",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Bank of Ireland",
+            "alt_queries": [],
+            "ticker": "BIRG.I",
+            "name": "Bank of Ireland Group",
+            "type": "company",
+            "sector": "Financials",
+            "country": "IE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Barclays",
+            "alt_queries": [],
+            "ticker": "BARC.L",
+            "name": "Barclays plc",
+            "type": "company",
+            "sector": "Financials",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "BASF",
+            "alt_queries": [],
+            "ticker": "BASFn.DE",
+            "name": "BASF SE",
+            "type": "company",
+            "sector": "Materials",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Bayer",
+            "alt_queries": [],
+            "ticker": "BAYN.DE",
+            "name": "Bayer AG",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "BBVA",
+            "alt_queries": [],
+            "ticker": "BBVA.MC",
+            "name": "BBVA SA",
+            "type": "company",
+            "sector": "Financials",
+            "country": "ES",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Beiersdorf",
+            "alt_queries": [
+                "Nivea"
+            ],
+            "ticker": "BEIG.DE",
+            "name": "Beiersdorf",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "BMW",
+            "alt_queries": [],
+            "ticker": "BMWG.DE",
+            "name": "BMW AG",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "BNP Paribas",
+            "alt_queries": [],
+            "ticker": "BNPP.PA",
+            "name": "BNP Paribas",
+            "type": "company",
+            "sector": "Financials",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "BP",
+            "alt_queries": [],
+            "ticker": "BP.L",
+            "name": "BP plc",
+            "type": "company",
+            "sector": "Energy",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "British American Tobacco",
+            "alt_queries": [],
+            "ticker": "BATS.L",
+            "name": "British American Tobacco",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "CaixaBank",
+            "alt_queries": [],
+            "ticker": "CABK.MC",
+            "name": "CaixaBank SA",
+            "type": "company",
+            "sector": "Financials",
+            "country": "ES",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Capgemini",
+            "alt_queries": [],
+            "ticker": "CAPP.PA",
+            "name": "Capgemini SE",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Carlsberg",
+            "alt_queries": [],
+            "ticker": "CARLb.CO",
+            "name": "Carlsberg B",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "DK",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Coloplast",
+            "alt_queries": [],
+            "ticker": "COLOb.CO",
+            "name": "Coloplast B",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "DK",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Richemont",
+            "alt_queries": [
+                "Cartier Richemont"
+            ],
+            "ticker": "CFR.S",
+            "name": "Compagnie Financiere Richemont",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "CH",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Compass Group",
+            "alt_queries": [],
+            "ticker": "CPG.L",
+            "name": "Compass Group",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Continental",
+            "alt_queries": [],
+            "ticker": "CONG.DE",
+            "name": "Continental AG",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "CRH",
+            "alt_queries": [],
+            "ticker": "CRH.L",
+            "name": "CRH plc",
+            "type": "company",
+            "sector": "Materials",
+            "country": "IE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Credit Agricole",
+            "alt_queries": [],
+            "ticker": "CAGR.PA",
+            "name": "Crédit Agricole",
+            "type": "company",
+            "sector": "Financials",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Daimler Truck",
+            "alt_queries": [],
+            "ticker": "DTRG.DE",
+            "name": "Daimler Truck",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Danone",
+            "alt_queries": [],
+            "ticker": "DANO.PA",
+            "name": "Danone SA",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Dassault Systemes",
+            "alt_queries": [],
+            "ticker": "DAST.PA",
+            "name": "Dassault Systèmes",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Deutsche Bank",
+            "alt_queries": [],
+            "ticker": "DBKGn.DE",
+            "name": "Deutsche Bank",
+            "type": "company",
+            "sector": "Financials",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Deutsche Telekom",
+            "alt_queries": [],
+            "ticker": "DTEGn.DE",
+            "name": "Deutsche Telekom",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "DHL Group",
+            "alt_queries": [
+                "Deutsche Post DHL"
+            ],
+            "ticker": "DPWGn.DE",
+            "name": "DHL Group",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Diageo",
+            "alt_queries": [],
+            "ticker": "DGE.L",
+            "name": "Diageo plc",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "DNB Bank",
+            "alt_queries": [],
+            "ticker": "DNB.OL",
+            "name": "DNB ASA",
+            "type": "company",
+            "sector": "Financials",
+            "country": "NO",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "DSV",
+            "alt_queries": [],
+            "ticker": "DSFG.CO",
+            "name": "DSV A/S",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DK",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "E.ON",
+            "alt_queries": [],
+            "ticker": "EONGn.DE",
+            "name": "E.ON SE",
+            "type": "company",
+            "sector": "Utilities",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "EDP",
+            "alt_queries": [],
+            "ticker": "EDP.LS",
+            "name": "EDP SA",
+            "type": "company",
+            "sector": "Utilities",
+            "country": "PT",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Endesa",
+            "alt_queries": [],
+            "ticker": "ELE.MC",
+            "name": "Endesa SA",
+            "type": "company",
+            "sector": "Utilities",
+            "country": "ES",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Enel",
+            "alt_queries": [],
+            "ticker": "ENEI.MI",
+            "name": "Enel SpA",
+            "type": "company",
+            "sector": "Utilities",
+            "country": "IT",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Engie",
+            "alt_queries": [],
+            "ticker": "ENGIE.PA",
+            "name": "Engie SA",
+            "type": "company",
+            "sector": "Utilities",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Eni",
+            "alt_queries": [],
+            "ticker": "ENI.MI",
+            "name": "Eni SpA",
+            "type": "company",
+            "sector": "Energy",
+            "country": "IT",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Epiroc",
+            "alt_queries": [],
+            "ticker": "EPIRb.ST",
+            "name": "Epiroc B",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "SE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "EQT AB",
+            "alt_queries": [
+                "EQT private equity"
+            ],
+            "ticker": "EQT.ST",
+            "name": "EQT AB",
+            "type": "company",
+            "sector": "Financials",
+            "country": "SE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Equinor",
+            "alt_queries": [],
+            "ticker": "EQNR.OL",
+            "name": "Equinor ASA",
+            "type": "company",
+            "sector": "Energy",
+            "country": "NO",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Ericsson",
+            "alt_queries": [],
+            "ticker": "ERICb.ST",
+            "name": "Ericsson B",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "SE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Erste Group Bank",
+            "alt_queries": [],
+            "ticker": "ERST.VI",
+            "name": "Erste Group Bank",
+            "type": "company",
+            "sector": "Financials",
+            "country": "AT",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "EssilorLuxottica",
+            "alt_queries": [
+                "Essilor Luxottica glasses"
+            ],
+            "ticker": "ESLX.PA",
+            "name": "EssilorLuxottica",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Essity",
+            "alt_queries": [],
+            "ticker": "ESSITYb.ST",
+            "name": "Essity B",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "SE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Eurofins Scientific",
+            "alt_queries": [],
+            "ticker": "ERF.PA",
+            "name": "Eurofins Scientific",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "LU",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Evolution Gaming",
+            "alt_queries": [
+                "Evolution live casino"
+            ],
+            "ticker": "EVO.ST",
+            "name": "Evolution AB",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "SE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Experian",
+            "alt_queries": [],
+            "ticker": "EXPN.L",
+            "name": "Experian plc",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Ferguson Enterprises",
+            "alt_queries": [
+                "Ferguson plumbing"
+            ],
+            "ticker": "FERG.L",
+            "name": "Ferguson plc",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Ferrari",
+            "alt_queries": [],
+            "ticker": "RACE.MI",
+            "name": "Ferrari NV",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "IT",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Ferrovial",
+            "alt_queries": [],
+            "ticker": "FER.MC",
+            "name": "Ferrovial SE",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "ES",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Fresenius Medical Care",
+            "alt_queries": [
+                "FMC dialysis"
+            ],
+            "ticker": "FMEG.DE",
+            "name": "Fresenius Medical Care",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Fresenius",
+            "alt_queries": [],
+            "ticker": "FREG.DE",
+            "name": "Fresenius SE",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Geberit",
+            "alt_queries": [],
+            "ticker": "GEBN.S",
+            "name": "Geberit AG",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "CH",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Genmab",
+            "alt_queries": [],
+            "ticker": "GMAB.CO",
+            "name": "Genmab A/S",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "DK",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Givaudan",
+            "alt_queries": [],
+            "ticker": "GIVN.S",
+            "name": "Givaudan SA",
+            "type": "company",
+            "sector": "Materials",
+            "country": "CH",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Glencore",
+            "alt_queries": [],
+            "ticker": "GLEN.L",
+            "name": "Glencore plc",
+            "type": "company",
+            "sector": "Materials",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "GSK",
+            "alt_queries": [],
+            "ticker": "GSK.L",
+            "name": "GSK plc",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Haleon",
+            "alt_queries": [],
+            "ticker": "HLN.L",
+            "name": "Haleon plc",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "HeidelbergMaterials",
+            "alt_queries": [],
+            "ticker": "HEIG.DE",
+            "name": "HeidelbergMaterials",
+            "type": "company",
+            "sector": "Materials",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Heineken",
+            "alt_queries": [],
+            "ticker": "HEIA.AS",
+            "name": "Heineken NV",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "NL",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Henkel",
+            "alt_queries": [],
+            "ticker": "HNKG_p.DE",
+            "name": "Henkel AG",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Hermes International",
+            "alt_queries": [
+                "Hermes luxury"
+            ],
+            "ticker": "RMS.PA",
+            "name": "Hermès International",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Hexagon",
+            "alt_queries": [],
+            "ticker": "HEXAb.ST",
+            "name": "Hexagon B",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "SE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Holcim",
+            "alt_queries": [],
+            "ticker": "HOLN.S",
+            "name": "Holcim Ltd",
+            "type": "company",
+            "sector": "Materials",
+            "country": "CH",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "HSBC Holdings",
+            "alt_queries": [],
+            "ticker": "HSBA.L",
+            "name": "HSBC Holdings",
+            "type": "company",
+            "sector": "Financials",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Iberdrola",
+            "alt_queries": [],
+            "ticker": "IBE.MC",
+            "name": "Iberdrola SA",
+            "type": "company",
+            "sector": "Utilities",
+            "country": "ES",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Inditex",
+            "alt_queries": [
+                "Zara Inditex"
+            ],
+            "ticker": "ITX.MC",
+            "name": "Inditex SA",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "ES",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Infineon Technologies",
+            "alt_queries": [],
+            "ticker": "IFXGn.DE",
+            "name": "Infineon Technologies",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "ING Group",
+            "alt_queries": [],
+            "ticker": "INGA.AS",
+            "name": "ING Group",
+            "type": "company",
+            "sector": "Financials",
+            "country": "NL",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "IAG International Airlines",
+            "alt_queries": [
+                "IAG Iberia British Airways"
+            ],
+            "ticker": "ICAG.L",
+            "name": "International Airlines Group",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Intesa Sanpaolo",
+            "alt_queries": [],
+            "ticker": "ISP.MI",
+            "name": "Intesa Sanpaolo",
+            "type": "company",
+            "sector": "Financials",
+            "country": "IT",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Investor AB",
+            "alt_queries": [],
+            "ticker": "INVEb.ST",
+            "name": "Investor B",
+            "type": "company",
+            "sector": "Financials",
+            "country": "SE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Jeronimo Martins",
+            "alt_queries": [],
+            "ticker": "JMT.LS",
+            "name": "Jerónimo Martins",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "PT",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Julius Baer",
+            "alt_queries": [],
+            "ticker": "BAER.S",
+            "name": "Julius Bär Group",
+            "type": "company",
+            "sector": "Financials",
+            "country": "CH",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "KBC Group",
+            "alt_queries": [],
+            "ticker": "KBC.BR",
+            "name": "KBC Group NV",
+            "type": "company",
+            "sector": "Financials",
+            "country": "BE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Kering",
+            "alt_queries": [
+                "Gucci Kering"
+            ],
+            "ticker": "PRTP.PA",
+            "name": "Kering SA",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Kerry Group",
+            "alt_queries": [],
+            "ticker": "KYGa.I",
+            "name": "Kerry Group A",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "IE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Kone",
+            "alt_queries": [],
+            "ticker": "KNEBV.HE",
+            "name": "Kone Oyj",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "FI",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Philips",
+            "alt_queries": [],
+            "ticker": "PHG.AS",
+            "name": "Koninklijke Philips",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "NL",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Kuehne Nagel",
+            "alt_queries": [
+                "Kuehne Nagel logistics"
+            ],
+            "ticker": "KNIN.S",
+            "name": "Kühne+Nagel International",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "CH",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "L Oreal",
+            "alt_queries": [
+                "L'Oreal cosmetics"
+            ],
+            "ticker": "OREP.PA",
+            "name": "L'Oréal",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Legal General",
+            "alt_queries": [],
+            "ticker": "LGEN.L",
+            "name": "Legal & General",
+            "type": "company",
+            "sector": "Financials",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Legrand",
+            "alt_queries": [],
+            "ticker": "LEGD.PA",
+            "name": "Legrand SA",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Leonardo",
+            "alt_queries": [],
+            "ticker": "LDOF.MI",
+            "name": "Leonardo SpA",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "IT",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Lloyds Banking Group",
+            "alt_queries": [],
+            "ticker": "LLOY.L",
+            "name": "Lloyds Banking Group",
+            "type": "company",
+            "sector": "Financials",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Lonza",
+            "alt_queries": [],
+            "ticker": "LONN.S",
+            "name": "Lonza Group",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "CH",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "LVMH",
+            "alt_queries": [
+                "Louis Vuitton",
+                "Moet Hennessy"
+            ],
+            "ticker": "MC.PA",
+            "name": "LVMH",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Mercedes-Benz",
+            "alt_queries": [],
+            "ticker": "MBGn.DE",
+            "name": "Mercedes-Benz Group",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Merck KGaA",
+            "alt_queries": [
+                "Merck Group Germany"
+            ],
+            "ticker": "MRCG.DE",
+            "name": "Merck KGaA",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Michelin",
+            "alt_queries": [],
+            "ticker": "MICP.PA",
+            "name": "Michelin",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Moncler",
+            "alt_queries": [],
+            "ticker": "MONC.MI",
+            "name": "Moncler SpA",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "IT",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "MTU Aero Engines",
+            "alt_queries": [],
+            "ticker": "MTXGn.DE",
+            "name": "MTU Aero Engines",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Munich Re",
+            "alt_queries": [
+                "Munich Reinsurance"
+            ],
+            "ticker": "MUVGn.DE",
+            "name": "Munich Re",
+            "type": "company",
+            "sector": "Financials",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "National Grid",
+            "alt_queries": [],
+            "ticker": "NG.L",
+            "name": "National Grid",
+            "type": "company",
+            "sector": "Utilities",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Naturgy",
+            "alt_queries": [],
+            "ticker": "NTGY.MC",
+            "name": "Naturgy Energy",
+            "type": "company",
+            "sector": "Utilities",
+            "country": "ES",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "NatWest Group",
+            "alt_queries": [],
+            "ticker": "NWG.L",
+            "name": "NatWest Group",
+            "type": "company",
+            "sector": "Financials",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Neste",
+            "alt_queries": [],
+            "ticker": "NESTE.HE",
+            "name": "Neste Oyj",
+            "type": "company",
+            "sector": "Energy",
+            "country": "FI",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Nestle",
+            "alt_queries": [],
+            "ticker": "NESN.S",
+            "name": "Nestlé SA",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "CH",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Nibe Industrier",
+            "alt_queries": [],
+            "ticker": "NIBEb.ST",
+            "name": "Nibe Industrier B",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "SE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "NN Group",
+            "alt_queries": [],
+            "ticker": "NN.AS",
+            "name": "NN Group NV",
+            "type": "company",
+            "sector": "Financials",
+            "country": "NL",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Nokia",
+            "alt_queries": [],
+            "ticker": "NOKIA.HE",
+            "name": "Nokia Oyj",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "FI",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Nordea Bank",
+            "alt_queries": [],
+            "ticker": "NDA-FI.HE",
+            "name": "Nordea Bank",
+            "type": "company",
+            "sector": "Financials",
+            "country": "FI",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Novartis",
+            "alt_queries": [],
+            "ticker": "NOVN.S",
+            "name": "Novartis AG",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "CH",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Novo Nordisk",
+            "alt_queries": [],
+            "ticker": "NOVOb.CO",
+            "name": "Novo Nordisk B",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "DK",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Novozymes",
+            "alt_queries": [
+                "Novonesis Novozymes"
+            ],
+            "ticker": "NZYMB.CO",
+            "name": "Novonesis",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "DK",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "OMV",
+            "alt_queries": [],
+            "ticker": "OMV.VI",
+            "name": "OMV AG",
+            "type": "company",
+            "sector": "Energy",
+            "country": "AT",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Orange France",
+            "alt_queries": [
+                "Orange telecom"
+            ],
+            "ticker": "ORAN.PA",
+            "name": "Orange SA",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Partners Group",
+            "alt_queries": [],
+            "ticker": "PGHN.S",
+            "name": "Partners Group",
+            "type": "company",
+            "sector": "Financials",
+            "country": "CH",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Pernod Ricard",
+            "alt_queries": [],
+            "ticker": "PERP.PA",
+            "name": "Pernod Ricard",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Pirelli",
+            "alt_queries": [],
+            "ticker": "PIRC.MI",
+            "name": "Pirelli & C.",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "IT",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Porsche AG",
+            "alt_queries": [],
+            "ticker": "PAH3.DE",
+            "name": "Porsche AG",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Poste Italiane",
+            "alt_queries": [],
+            "ticker": "PST.MI",
+            "name": "Poste Italiane",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "IT",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Prosus",
+            "alt_queries": [],
+            "ticker": "PRX.AS",
+            "name": "Prosus NV",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "NL",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Prudential",
+            "alt_queries": [],
+            "ticker": "PRU.L",
+            "name": "Prudential plc",
+            "type": "company",
+            "sector": "Financials",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Prysmian",
+            "alt_queries": [],
+            "ticker": "PRY.MI",
+            "name": "Prysmian SpA",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "IT",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Publicis Groupe",
+            "alt_queries": [],
+            "ticker": "PUBP.PA",
+            "name": "Publicis Groupe",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Randstad",
+            "alt_queries": [],
+            "ticker": "RAND.AS",
+            "name": "Randstad NV",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "NL",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Reckitt Benckiser",
+            "alt_queries": [],
+            "ticker": "RKT.L",
+            "name": "Reckitt Benckiser",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "RELX",
+            "alt_queries": [],
+            "ticker": "REL.L",
+            "name": "RELX plc",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Renault",
+            "alt_queries": [],
+            "ticker": "RENA.PA",
+            "name": "Renault SA",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Rentokil Initial",
+            "alt_queries": [],
+            "ticker": "RTO.L",
+            "name": "Rentokil Initial",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Repsol",
+            "alt_queries": [],
+            "ticker": "REP.MC",
+            "name": "Repsol SA",
+            "type": "company",
+            "sector": "Energy",
+            "country": "ES",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Rheinmetall",
+            "alt_queries": [],
+            "ticker": "RHNG.DE",
+            "name": "Rheinmetall AG",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Rio Tinto",
+            "alt_queries": [],
+            "ticker": "RIO.L",
+            "name": "Rio Tinto",
+            "type": "company",
+            "sector": "Materials",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Roche Holding",
+            "alt_queries": [],
+            "ticker": "ROG.S",
+            "name": "Roche Holding",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "CH",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Rolls-Royce",
+            "alt_queries": [],
+            "ticker": "RR.L",
+            "name": "Rolls-Royce Holdings",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "RWE",
+            "alt_queries": [],
+            "ticker": "RWEG.DE",
+            "name": "RWE AG",
+            "type": "company",
+            "sector": "Utilities",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Ryanair",
+            "alt_queries": [],
+            "ticker": "RYA.I",
+            "name": "Ryanair Holdings",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "IE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Safran",
+            "alt_queries": [],
+            "ticker": "SAF.PA",
+            "name": "Safran SA",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Sage Group",
+            "alt_queries": [],
+            "ticker": "SGE.L",
+            "name": "Sage Group",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Saint-Gobain",
+            "alt_queries": [],
+            "ticker": "SGOB.PA",
+            "name": "Saint-Gobain",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Sampo",
+            "alt_queries": [],
+            "ticker": "SAMAS.HE",
+            "name": "Sampo A",
+            "type": "company",
+            "sector": "Financials",
+            "country": "FI",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Sandvik",
+            "alt_queries": [],
+            "ticker": "SAND.ST",
+            "name": "Sandvik AB",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "SE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Sanofi",
+            "alt_queries": [],
+            "ticker": "SASY.PA",
+            "name": "Sanofi",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "SAP SE",
+            "alt_queries": [
+                "SAP"
+            ],
+            "ticker": "SAP.DE",
+            "name": "SAP SE",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Sartorius",
+            "alt_queries": [],
+            "ticker": "SATG.DE",
+            "name": "Sartorius AG",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Schneider Electric",
+            "alt_queries": [],
+            "ticker": "SU.PA",
+            "name": "Schneider Electric",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "SEB Bank",
+            "alt_queries": [
+                "Skandinaviska Enskilda Banken"
+            ],
+            "ticker": "SEBa.ST",
+            "name": "SEB A",
+            "type": "company",
+            "sector": "Financials",
+            "country": "SE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "SGS",
+            "alt_queries": [],
+            "ticker": "SGSN.S",
+            "name": "SGS SA",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "CH",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Shell",
+            "alt_queries": [],
+            "ticker": "SHEL.L",
+            "name": "Shell plc",
+            "type": "company",
+            "sector": "Energy",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Siemens AG",
+            "alt_queries": [
+                "Siemens"
+            ],
+            "ticker": "SIE.DE",
+            "name": "Siemens",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Siemens Energy",
+            "alt_queries": [],
+            "ticker": "ENR.DE",
+            "name": "Siemens Energy",
+            "type": "company",
+            "sector": "Energy",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Siemens Healthineers",
+            "alt_queries": [],
+            "ticker": "SHLG.DE",
+            "name": "Siemens Healthineers",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Sika",
+            "alt_queries": [],
+            "ticker": "SIKN.S",
+            "name": "Sika AG",
+            "type": "company",
+            "sector": "Materials",
+            "country": "CH",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Smith Nephew",
+            "alt_queries": [],
+            "ticker": "SN.L",
+            "name": "Smith & Nephew",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Societe Generale",
+            "alt_queries": [],
+            "ticker": "SOGN.PA",
+            "name": "Société Générale",
+            "type": "company",
+            "sector": "Financials",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Standard Chartered",
+            "alt_queries": [],
+            "ticker": "STAN.L",
+            "name": "Standard Chartered",
+            "type": "company",
+            "sector": "Financials",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Stellantis",
+            "alt_queries": [],
+            "ticker": "STLAM.MI",
+            "name": "Stellantis NV",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "NL",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "STMicroelectronics",
+            "alt_queries": [],
+            "ticker": "STM.PA",
+            "name": "STMicroelectronics",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Stora Enso",
+            "alt_queries": [],
+            "ticker": "STERV.HE",
+            "name": "Stora Enso R",
+            "type": "company",
+            "sector": "Materials",
+            "country": "FI",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Svenska Handelsbanken",
+            "alt_queries": [],
+            "ticker": "SHBa.ST",
+            "name": "Svenska Handelsbanken A",
+            "type": "company",
+            "sector": "Financials",
+            "country": "SE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Swedbank",
+            "alt_queries": [],
+            "ticker": "SWEDa.ST",
+            "name": "Swedbank A",
+            "type": "company",
+            "sector": "Financials",
+            "country": "SE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Swiss Life",
+            "alt_queries": [],
+            "ticker": "SLHN.S",
+            "name": "Swiss Life Holding",
+            "type": "company",
+            "sector": "Financials",
+            "country": "CH",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Swiss Re",
+            "alt_queries": [],
+            "ticker": "SRENH.S",
+            "name": "Swiss Re AG",
+            "type": "company",
+            "sector": "Financials",
+            "country": "CH",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Telefonica",
+            "alt_queries": [],
+            "ticker": "TEF.MC",
+            "name": "Telefónica SA",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "ES",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Telenor",
+            "alt_queries": [],
+            "ticker": "TEL.OL",
+            "name": "Telenor ASA",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "NO",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Tenaris",
+            "alt_queries": [],
+            "ticker": "TEN.MI",
+            "name": "Tenaris SA",
+            "type": "company",
+            "sector": "Energy",
+            "country": "LU",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Thales",
+            "alt_queries": [],
+            "ticker": "TCFP.PA",
+            "name": "Thales SA",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "TotalEnergies",
+            "alt_queries": [
+                "Total Energies"
+            ],
+            "ticker": "TTE.PA",
+            "name": "TotalEnergies",
+            "type": "company",
+            "sector": "Energy",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "UBS Group",
+            "alt_queries": [],
+            "ticker": "UBSG.S",
+            "name": "UBS Group",
+            "type": "company",
+            "sector": "Financials",
+            "country": "CH",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "UCB",
+            "alt_queries": [],
+            "ticker": "UCB.BR",
+            "name": "UCB SA",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "BE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Unibail Rodamco",
+            "alt_queries": [
+                "URW REIT"
+            ],
+            "ticker": "URW.AS",
+            "name": "Unibail-Rodamco-Westfield",
+            "type": "company",
+            "sector": "Real Estate",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "UniCredit",
+            "alt_queries": [],
+            "ticker": "CRDI.MI",
+            "name": "UniCredit SpA",
+            "type": "company",
+            "sector": "Financials",
+            "country": "IT",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Unilever",
+            "alt_queries": [],
+            "ticker": "ULVR.L",
+            "name": "Unilever plc",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "UPM-Kymmene",
+            "alt_queries": [],
+            "ticker": "UPM.HE",
+            "name": "UPM-Kymmene",
+            "type": "company",
+            "sector": "Materials",
+            "country": "FI",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Veolia Environnement",
+            "alt_queries": [
+                "Veolia water"
+            ],
+            "ticker": "VIE.PA",
+            "name": "Veolia Environnement",
+            "type": "company",
+            "sector": "Utilities",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Vestas Wind Systems",
+            "alt_queries": [],
+            "ticker": "VWS.CO",
+            "name": "Vestas Wind Systems",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DK",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Vinci",
+            "alt_queries": [],
+            "ticker": "SGEF.PA",
+            "name": "Vinci SA",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "FR",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Volkswagen",
+            "alt_queries": [
+                "VW"
+            ],
+            "ticker": "VOW3.DE",
+            "name": "Volkswagen",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "DE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Volvo AB",
+            "alt_queries": [
+                "Volvo trucks"
+            ],
+            "ticker": "VOLVb.ST",
+            "name": "Volvo B",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "SE",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Wolters Kluwer",
+            "alt_queries": [],
+            "ticker": "WKLA.AS",
+            "name": "Wolters Kluwer",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "NL",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "WPP",
+            "alt_queries": [],
+            "ticker": "WPP.L",
+            "name": "WPP plc",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "GB",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Yara International",
+            "alt_queries": [],
+            "ticker": "YAR.OL",
+            "name": "Yara International",
+            "type": "company",
+            "sector": "Materials",
+            "country": "NO",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Zurich Insurance",
+            "alt_queries": [],
+            "ticker": "ZURN.S",
+            "name": "Zurich Insurance Group",
+            "type": "company",
+            "sector": "Financials",
+            "country": "CH",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Orsted",
+            "alt_queries": [
+                "Orsted offshore wind"
+            ],
+            "ticker": "ORSTED.CO",
+            "name": "Ørsted A/S",
+            "type": "company",
+            "sector": "Utilities",
+            "country": "DK",
+            "cap_group": "large",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "3i Group",
+            "alt_queries": [],
+            "ticker": "III.L",
+            "name": "3i Group",
+            "type": "company",
+            "sector": "Financials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Abivax",
+            "alt_queries": [
+                "Abivax obefazimod drug"
+            ],
+            "ticker": "ABVX.PA",
+            "name": "Abivax",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2025-09-22",
+            "to_date": "current"
+        },
+        {
+            "query": "abrdn",
+            "alt_queries": [],
+            "ticker": "ABDN.L",
+            "name": "abrdn plc",
+            "type": "company",
+            "sector": "Financials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Accor",
+            "alt_queries": [],
+            "ticker": "ACCP.PA",
+            "name": "Accor SA",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Admiral Group",
+            "alt_queries": [],
+            "ticker": "ADM.L",
+            "name": "Admiral Group",
+            "type": "company",
+            "sector": "Financials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Ageas",
+            "alt_queries": [],
+            "ticker": "AGS.BR",
+            "name": "Ageas SA",
+            "type": "company",
+            "sector": "Financials",
+            "country": "BE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Airtel Africa",
+            "alt_queries": [
+                "Airtel Africa telecom"
+            ],
+            "ticker": "AAF.L",
+            "name": "Airtel Africa PLC",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2025-12-22",
+            "to_date": "current"
+        },
+        {
+            "query": "AIXTRON",
+            "alt_queries": [
+                "AIXTRON semiconductor equipment"
+            ],
+            "ticker": "AIXGn.DE",
+            "name": "AIXTRON",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2024-12-23"
+        },
+        {
+            "query": "Aker BP",
+            "alt_queries": [],
+            "ticker": "AKRBP.OL",
+            "name": "Aker BP ASA",
+            "type": "company",
+            "sector": "Energy",
+            "country": "NO",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "ALK Abello",
+            "alt_queries": [
+                "Alk Abello"
+            ],
+            "ticker": "ALKb.CO",
+            "name": "Alk-Abello B",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "DK",
+            "cap_group": "mid",
+            "from_date": "2024-06-24",
+            "to_date": "current"
+        },
+        {
+            "query": "Alstom",
+            "alt_queries": [],
+            "ticker": "ALSO.PA",
+            "name": "Alstom SA",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Andritz",
+            "alt_queries": [],
+            "ticker": "ANDR.VI",
+            "name": "Andritz AG",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "AT",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Arkema",
+            "alt_queries": [],
+            "ticker": "AKE.PA",
+            "name": "Arkema SA",
+            "type": "company",
+            "sector": "Materials",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Asseco",
+            "alt_queries": [
+                "Asseco Poland IT"
+            ],
+            "ticker": "ACPP.WA",
+            "name": "Asseco Poland",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "PL",
+            "cap_group": "mid",
+            "from_date": "2025-12-22",
+            "to_date": "current"
+        },
+        {
+            "query": "Auto Trader Group",
+            "alt_queries": [],
+            "ticker": "AUTO.L",
+            "name": "Auto Trader Group",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Auto1",
+            "alt_queries": [
+                "Auto1 Group cars"
+            ],
+            "ticker": "AG1G.DE",
+            "name": "Auto1 Group",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2025-03-24",
+            "to_date": "current"
+        },
+        {
+            "query": "Autoliv",
+            "alt_queries": [],
+            "ticker": "ALIVsdb.ST",
+            "name": "Autoliv Inc SDB",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Ayvens",
+            "alt_queries": [
+                "ALD Automotive leasing"
+            ],
+            "ticker": "AYV.PA",
+            "name": "Ayvens",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2025-06-23",
+            "to_date": "current"
+        },
+        {
+            "query": "B and M European Value Retail",
+            "alt_queries": [
+                "B&M discount UK"
+            ],
+            "ticker": "BME.L",
+            "name": "B&M European Value Retail",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Babcock",
+            "alt_queries": [
+                "Babcock defense"
+            ],
+            "ticker": "BAB.L",
+            "name": "Babcock International",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2025-06-23",
+            "to_date": "current"
+        },
+        {
+            "query": "Baloise",
+            "alt_queries": [],
+            "ticker": "BALN.S",
+            "name": "Baloise Group",
+            "type": "company",
+            "sector": "Financials",
+            "country": "CH",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Banca Generali",
+            "alt_queries": [
+                "BancaGenerali Italy"
+            ],
+            "ticker": "BGN.MI",
+            "name": "Banca Generali",
+            "type": "company",
+            "sector": "Financials",
+            "country": "IT",
+            "cap_group": "mid",
+            "from_date": "2024-12-23",
+            "to_date": "current"
+        },
+        {
+            "query": "Banca Popolare Sondrio",
+            "alt_queries": [
+                "Banca Sondrio"
+            ],
+            "ticker": "BPSI.MI",
+            "name": "Banca Popolare di Sondrio",
+            "type": "company",
+            "sector": "Financials",
+            "country": "IT",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-09-22"
+        },
+        {
+            "query": "Banco BPM",
+            "alt_queries": [],
+            "ticker": "BAMI.MI",
+            "name": "Banco BPM SpA",
+            "type": "company",
+            "sector": "Financials",
+            "country": "IT",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Bank of Georgia",
+            "alt_queries": [
+                "BOG bank Georgia"
+            ],
+            "ticker": "BGEO.L",
+            "name": "Bank of Georgia Group",
+            "type": "company",
+            "sector": "Financials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2025-06-23",
+            "to_date": "current"
+        },
+        {
+            "query": "Barratt Developments",
+            "alt_queries": [],
+            "ticker": "BDEV.L",
+            "name": "Barratt Developments",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Barry Callebaut",
+            "alt_queries": [],
+            "ticker": "BARN.S",
+            "name": "Barry Callebaut AG",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "CH",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Bavarian Nordic",
+            "alt_queries": [
+                "BAVA vaccine",
+                "Bavarian Nordic mpox"
+            ],
+            "ticker": "BAVA.CO",
+            "name": "Bavarian Nordic",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "DK",
+            "cap_group": "mid",
+            "from_date": "2024-09-23",
+            "to_date": "current"
+        },
+        {
+            "query": "Beazley",
+            "alt_queries": [],
+            "ticker": "BEZ.L",
+            "name": "Beazley plc",
+            "type": "company",
+            "sector": "Financials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Bekaert",
+            "alt_queries": [],
+            "ticker": "BEKB.BR",
+            "name": "Bekaert NV",
+            "type": "company",
+            "sector": "Materials",
+            "country": "BE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Bilfinger",
+            "alt_queries": [
+                "Bilfinger industrial services"
+            ],
+            "ticker": "GBFG.DE",
+            "name": "Bilfinger",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2025-06-23",
+            "to_date": "current"
+        },
+        {
+            "query": "bioMerieux",
+            "alt_queries": [
+                "bioMerieux diagnostics"
+            ],
+            "ticker": "BIOM.PA",
+            "name": "bioMérieux SA",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Boliden",
+            "alt_queries": [],
+            "ticker": "BOL.ST",
+            "name": "Boliden AB",
+            "type": "company",
+            "sector": "Materials",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Bouygues",
+            "alt_queries": [],
+            "ticker": "BOUY.PA",
+            "name": "Bouygues SA",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "BPER Banca",
+            "alt_queries": [],
+            "ticker": "EMII.MI",
+            "name": "BPER Banca",
+            "type": "company",
+            "sector": "Financials",
+            "country": "IT",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Brembo",
+            "alt_queries": [],
+            "ticker": "BRE.MI",
+            "name": "Brembo SpA",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "IT",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Brenntag",
+            "alt_queries": [],
+            "ticker": "BNRGn.DE",
+            "name": "Brenntag AG",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Bridgepoint",
+            "alt_queries": [
+                "Bridgepoint private equity"
+            ],
+            "ticker": "BPTB.L",
+            "name": "Bridgepoint Group",
+            "type": "company",
+            "sector": "Financials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-12-23",
+            "to_date": "current"
+        },
+        {
+            "query": "Bunzl",
+            "alt_queries": [],
+            "ticker": "BNZL.L",
+            "name": "Bunzl plc",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Burberry Group",
+            "alt_queries": [],
+            "ticker": "BRBY.L",
+            "name": "Burberry Group",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Bureau Veritas",
+            "alt_queries": [],
+            "ticker": "BVI.PA",
+            "name": "Bureau Veritas",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Camurus",
+            "alt_queries": [
+                "Camurus pharma Sweden"
+            ],
+            "ticker": "CAMX.ST",
+            "name": "Camurus",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2025-09-22",
+            "to_date": "current"
+        },
+        {
+            "query": "Canal Plus",
+            "alt_queries": [
+                "Canal+ France"
+            ],
+            "ticker": "CAN.L",
+            "name": "Canal+",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-03-24"
+        },
+        {
+            "query": "Carl Zeiss Meditec",
+            "alt_queries": [],
+            "ticker": "AFXG.DE",
+            "name": "Carl Zeiss Meditec",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-09-22"
+        },
+        {
+            "query": "Carnival plc",
+            "alt_queries": [
+                "Carnival cruise"
+            ],
+            "ticker": "CCL.L",
+            "name": "Carnival",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-12-23",
+            "to_date": "current"
+        },
+        {
+            "query": "Centrica",
+            "alt_queries": [],
+            "ticker": "CNA.L",
+            "name": "Centrica plc",
+            "type": "company",
+            "sector": "Utilities",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Colruyt Group",
+            "alt_queries": [],
+            "ticker": "COLR.BR",
+            "name": "Colruyt Group",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "BE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Comet Holdings",
+            "alt_queries": [
+                "Comet Switzerland electronics"
+            ],
+            "ticker": "COTNE.S",
+            "name": "Comet Holdings 'R'",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "CH",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-06-23"
+        },
+        {
+            "query": "Commerzbank",
+            "alt_queries": [],
+            "ticker": "CBKG.DE",
+            "name": "Commerzbank AG",
+            "type": "company",
+            "sector": "Financials",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Computacenter",
+            "alt_queries": [
+                "Computacenter IT services"
+            ],
+            "ticker": "CCC.L",
+            "name": "Computacenter",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-09-22"
+        },
+        {
+            "query": "ConvaTec",
+            "alt_queries": [],
+            "ticker": "CTEC.L",
+            "name": "ConvaTec Group",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Covestro",
+            "alt_queries": [
+                "Covestro polymer"
+            ],
+            "ticker": "1COVG.DE",
+            "name": "Covestro",
+            "type": "company",
+            "sector": "Materials",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-03-24"
+        },
+        {
+            "query": "Croda International",
+            "alt_queries": [],
+            "ticker": "CRDA.L",
+            "name": "Croda International",
+            "type": "company",
+            "sector": "Materials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "CVC Capital",
+            "alt_queries": [
+                "CVC Partners PE"
+            ],
+            "ticker": "CVC.AS",
+            "name": "CVC Capital Partners",
+            "type": "company",
+            "sector": "Financials",
+            "country": "NL",
+            "cap_group": "mid",
+            "from_date": "2024-09-23",
+            "to_date": "current"
+        },
+        {
+            "query": "D Ieteren Group",
+            "alt_queries": [],
+            "ticker": "DIE.BR",
+            "name": "D'Ieteren Group",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "BE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Campari",
+            "alt_queries": [],
+            "ticker": "CPRI.MI",
+            "name": "Davide Campari-Milano",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "IT",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "DeLonghi",
+            "alt_queries": [
+                "De Longhi coffee"
+            ],
+            "ticker": "DLG.MI",
+            "name": "De Longhi",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "IT",
+            "cap_group": "mid",
+            "from_date": "2025-12-22",
+            "to_date": "current"
+        },
+        {
+            "query": "Delivery Hero",
+            "alt_queries": [],
+            "ticker": "DHER.DE",
+            "name": "Delivery Hero",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Demant",
+            "alt_queries": [],
+            "ticker": "DEMANT.CO",
+            "name": "Demant A/S",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "DK",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Deutsche Lufthansa",
+            "alt_queries": [
+                "Lufthansa airline"
+            ],
+            "ticker": "LHAG.DE",
+            "name": "Deutsche Lufthansa",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "DiaSorin",
+            "alt_queries": [
+                "Diasorin diagnostics Italy"
+            ],
+            "ticker": "DIAS.MI",
+            "name": "Diasorin",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "IT",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-12-22"
+        },
+        {
+            "query": "Dometic Group",
+            "alt_queries": [],
+            "ticker": "DOM.ST",
+            "name": "Dometic Group",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "DWS Group",
+            "alt_queries": [
+                "DWS asset management"
+            ],
+            "ticker": "DWSG.DE",
+            "name": "DWS Group",
+            "type": "company",
+            "sector": "Financials",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Eiffage",
+            "alt_queries": [],
+            "ticker": "FIFP.PA",
+            "name": "Eiffage SA",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Electrolux",
+            "alt_queries": [
+                "Electrolux appliances Sweden"
+            ],
+            "ticker": "ELUXB.ST",
+            "name": "Electrolux B",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-06-23"
+        },
+        {
+            "query": "Elekta",
+            "alt_queries": [
+                "Elekta radiation therapy"
+            ],
+            "ticker": "EKTAb.ST",
+            "name": "Elekta B",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-06-23"
+        },
+        {
+            "query": "Embracer Group",
+            "alt_queries": [
+                "Embracer gaming Sweden"
+            ],
+            "ticker": "EMBRACB.ST",
+            "name": "Embracer Group",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-09-22"
+        },
+        {
+            "query": "Eurazeo",
+            "alt_queries": [],
+            "ticker": "ERAF.PA",
+            "name": "Eurazeo SE",
+            "type": "company",
+            "sector": "Financials",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Euronext",
+            "alt_queries": [],
+            "ticker": "ENX.PA",
+            "name": "Euronext NV",
+            "type": "company",
+            "sector": "Financials",
+            "country": "NL",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Evonik Industries",
+            "alt_queries": [],
+            "ticker": "EVKn.DE",
+            "name": "Evonik Industries",
+            "type": "company",
+            "sector": "Materials",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Financiere Tubize",
+            "alt_queries": [
+                "Tubize UCB"
+            ],
+            "ticker": "TUB.BR",
+            "name": "Financiere de Tubize",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "BE",
+            "cap_group": "mid",
+            "from_date": "2024-09-23",
+            "to_date": "current"
+        },
+        {
+            "query": "Finecobank",
+            "alt_queries": [],
+            "ticker": "FBK.MI",
+            "name": "FinecoBank SpA",
+            "type": "company",
+            "sector": "Financials",
+            "country": "IT",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "FlatexDEGIRO",
+            "alt_queries": [
+                "flatex broker",
+                "DEGIRO"
+            ],
+            "ticker": "FTKn.DE",
+            "name": "Flatexdegiro N",
+            "type": "company",
+            "sector": "Financials",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2025-09-22",
+            "to_date": "current"
+        },
+        {
+            "query": "FLSmidth",
+            "alt_queries": [],
+            "ticker": "FLS.CO",
+            "name": "FLSmidth & Co.",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DK",
+            "cap_group": "mid",
+            "from_date": "2024-06-24",
+            "to_date": "current"
+        },
+        {
+            "query": "Fluidra",
+            "alt_queries": [],
+            "ticker": "FDR.MC",
+            "name": "Fluidra SA",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "ES",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Flutter Entertainment",
+            "alt_queries": [],
+            "ticker": "FLTRF.L",
+            "name": "Flutter Entertainment",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2024-09-23"
+        },
+        {
+            "query": "Forvia",
+            "alt_queries": [],
+            "ticker": "FRVIA.PA",
+            "name": "Forvia",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2024-09-23"
+        },
+        {
+            "query": "Fraport",
+            "alt_queries": [
+                "Fraport Frankfurt airport"
+            ],
+            "ticker": "FRAG.DE",
+            "name": "Fraport",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2025-09-22",
+            "to_date": "current"
+        },
+        {
+            "query": "Fresnillo",
+            "alt_queries": [
+                "Fresnillo silver mining"
+            ],
+            "ticker": "FRES.L",
+            "name": "Fresnillo",
+            "type": "company",
+            "sector": "Materials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2025-06-23",
+            "to_date": "current"
+        },
+        {
+            "query": "Fugro",
+            "alt_queries": [],
+            "ticker": "FUGR.AS",
+            "name": "Fugro",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "NL",
+            "cap_group": "mid",
+            "from_date": "2024-06-24",
+            "to_date": "2025-06-23"
+        },
+        {
+            "query": "Galapagos",
+            "alt_queries": [],
+            "ticker": "GLPG.AS",
+            "name": "Galapagos NV",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "BE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Galderma",
+            "alt_queries": [
+                "Galderma Group"
+            ],
+            "ticker": "GALD.SW",
+            "name": "Galderma",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "CH",
+            "cap_group": "mid",
+            "from_date": "2024-06-24",
+            "to_date": "current"
+        },
+        {
+            "query": "Galp Energia",
+            "alt_queries": [],
+            "ticker": "GALP.LS",
+            "name": "Galp Energia",
+            "type": "company",
+            "sector": "Energy",
+            "country": "PT",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "GEA Group",
+            "alt_queries": [],
+            "ticker": "G1AG.DE",
+            "name": "GEA Group",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Gerresheimer",
+            "alt_queries": [
+                "Gerresheimer pharma packaging"
+            ],
+            "ticker": "GXIG.DE",
+            "name": "Gerresheimer",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-09-22"
+        },
+        {
+            "query": "Getinge",
+            "alt_queries": [],
+            "ticker": "GETIb.ST",
+            "name": "Getinge B",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Gjensidige Forsikring",
+            "alt_queries": [],
+            "ticker": "GJF.OL",
+            "name": "Gjensidige Forsikring",
+            "type": "company",
+            "sector": "Financials",
+            "country": "NO",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Glanbia",
+            "alt_queries": [],
+            "ticker": "GLB.I",
+            "name": "Glanbia plc",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "IE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "GN Audio",
+            "alt_queries": [
+                "GN Store Nord",
+                "Jabra"
+            ],
+            "ticker": "GN.CO",
+            "name": "GN Store Nord",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "DK",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-06-23"
+        },
+        {
+            "query": "Grifols",
+            "alt_queries": [],
+            "ticker": "GRLS.MC",
+            "name": "Grifols SA",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "ES",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Halma",
+            "alt_queries": [],
+            "ticker": "HLMA.L",
+            "name": "Halma plc",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Hannover Re",
+            "alt_queries": [
+                "Hannover Rueck"
+            ],
+            "ticker": "HNRGn.DE",
+            "name": "Hannover Re",
+            "type": "company",
+            "sector": "Financials",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Hargreaves Lansdown",
+            "alt_queries": [
+                "HL UK platform"
+            ],
+            "ticker": "HGRV.L",
+            "name": "Hargreaves Lansdown",
+            "type": "company",
+            "sector": "Financials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-03-24"
+        },
+        {
+            "query": "Hays",
+            "alt_queries": [],
+            "ticker": "HAYS.L",
+            "name": "Hays",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2024-12-23"
+        },
+        {
+            "query": "Hemnet",
+            "alt_queries": [
+                "Hemnet Swedish property"
+            ],
+            "ticker": "HEM.ST",
+            "name": "Hemnet",
+            "type": "company",
+            "sector": "Real Estate",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2024-06-24",
+            "to_date": "2025-12-22"
+        },
+        {
+            "query": "Hensoldt",
+            "alt_queries": [
+                "Hensoldt radar defense"
+            ],
+            "ticker": "HAGG.DE",
+            "name": "Hensoldt",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2025-03-24",
+            "to_date": "current"
+        },
+        {
+            "query": "Hexpol",
+            "alt_queries": [],
+            "ticker": "HPOL_B.ST",
+            "name": "Hexpol B",
+            "type": "company",
+            "sector": "Materials",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Hiscox",
+            "alt_queries": [],
+            "ticker": "HSX.L",
+            "name": "Hiscox Ltd",
+            "type": "company",
+            "sector": "Financials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Hochtief",
+            "alt_queries": [],
+            "ticker": "HOTG.DE",
+            "name": "Hochtief AG",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Huber Suhner",
+            "alt_queries": [],
+            "ticker": "HUBN.S",
+            "name": "Huber+Suhner 'R'",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "CH",
+            "cap_group": "mid",
+            "from_date": "2025-12-22",
+            "to_date": "current"
+        },
+        {
+            "query": "Hugo Boss",
+            "alt_queries": [
+                "Boss fashion Germany"
+            ],
+            "ticker": "BOSSn.DE",
+            "name": "Hugo Boss",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2024-12-23"
+        },
+        {
+            "query": "Husqvarna",
+            "alt_queries": [
+                "Husqvarna outdoor equipment"
+            ],
+            "ticker": "HUSQB.ST",
+            "name": "Husqvarna B",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-06-23"
+        },
+        {
+            "query": "ICA Gruppen",
+            "alt_queries": [],
+            "ticker": "ICA.ST",
+            "name": "ICA Gruppen",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "IMCD",
+            "alt_queries": [],
+            "ticker": "IMCD.AS",
+            "name": "IMCD NV",
+            "type": "company",
+            "sector": "Materials",
+            "country": "NL",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Imerys",
+            "alt_queries": [],
+            "ticker": "NK.PA",
+            "name": "Imerys SA",
+            "type": "company",
+            "sector": "Materials",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "IMI plc",
+            "alt_queries": [],
+            "ticker": "IMI.L",
+            "name": "IMI plc",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Indivior",
+            "alt_queries": [],
+            "ticker": "INDV.L",
+            "name": "Indivior",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2024-09-23"
+        },
+        {
+            "query": "Indra",
+            "alt_queries": [
+                "Indra Sistemas Spain"
+            ],
+            "ticker": "IDR.MC",
+            "name": "Indra Sistemas",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "ES",
+            "cap_group": "mid",
+            "from_date": "2025-06-23",
+            "to_date": "current"
+        },
+        {
+            "query": "Informa",
+            "alt_queries": [],
+            "ticker": "INF.L",
+            "name": "Informa plc",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Intertek Group",
+            "alt_queries": [],
+            "ticker": "ITRK.L",
+            "name": "Intertek Group",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Ipsos",
+            "alt_queries": [
+                "Ipsos research"
+            ],
+            "ticker": "ISOS.PA",
+            "name": "Ipsos",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2024-12-23"
+        },
+        {
+            "query": "ISS",
+            "alt_queries": [],
+            "ticker": "ISS.CO",
+            "name": "ISS A/S",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DK",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "ITV",
+            "alt_queries": [],
+            "ticker": "ITV.L",
+            "name": "ITV plc",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "JD Sports Fashion",
+            "alt_queries": [],
+            "ticker": "JD.L",
+            "name": "JD Sports Fashion",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Kemira",
+            "alt_queries": [],
+            "ticker": "KEMIRA.HE",
+            "name": "Kemira",
+            "type": "company",
+            "sector": "Materials",
+            "country": "FI",
+            "cap_group": "mid",
+            "from_date": "2024-06-24",
+            "to_date": "current"
+        },
+        {
+            "query": "Kinnevik",
+            "alt_queries": [],
+            "ticker": "KINV_B.ST",
+            "name": "Kinnevik B",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "KION Group",
+            "alt_queries": [],
+            "ticker": "KGXn.DE",
+            "name": "KION Group",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Knorr-Bremse",
+            "alt_queries": [],
+            "ticker": "KBX.DE",
+            "name": "Knorr-Bremse AG",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Kongsberg Gruppen",
+            "alt_queries": [],
+            "ticker": "KOG.OL",
+            "name": "Kongsberg Gruppen",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "NO",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Lanxess",
+            "alt_queries": [
+                "Lanxess specialty chemicals"
+            ],
+            "ticker": "LXSG.DE",
+            "name": "Lanxess",
+            "type": "company",
+            "sector": "Materials",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-12-22"
+        },
+        {
+            "query": "LEG Immobilien",
+            "alt_queries": [],
+            "ticker": "LEGn.DE",
+            "name": "LEG Immobilien",
+            "type": "company",
+            "sector": "Real Estate",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Logitech",
+            "alt_queries": [],
+            "ticker": "LOGN.S",
+            "name": "Logitech International",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "CH",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Loomis AB",
+            "alt_queries": [
+                "Loomis cash handling"
+            ],
+            "ticker": "LOOMIS.ST",
+            "name": "Loomis",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2025-03-24",
+            "to_date": "current"
+        },
+        {
+            "query": "Lottomatica",
+            "alt_queries": [
+                "Lottomatica gaming Italy"
+            ],
+            "ticker": "LTMC.MI",
+            "name": "Lottomatica Group",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "IT",
+            "cap_group": "mid",
+            "from_date": "2025-06-23",
+            "to_date": "current"
+        },
+        {
+            "query": "Man Group",
+            "alt_queries": [],
+            "ticker": "EMG.L",
+            "name": "Man Group",
+            "type": "company",
+            "sector": "Financials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Mandatum",
+            "alt_queries": [
+                "Mandatum Finland insurance"
+            ],
+            "ticker": "MANTA.HE",
+            "name": "Mandatum",
+            "type": "company",
+            "sector": "Financials",
+            "country": "FI",
+            "cap_group": "mid",
+            "from_date": "2025-03-24",
+            "to_date": "current"
+        },
+        {
+            "query": "MAPFRE",
+            "alt_queries": [
+                "Mapfre insurance Spain"
+            ],
+            "ticker": "MAP.MC",
+            "name": "Mapfre",
+            "type": "company",
+            "sector": "Financials",
+            "country": "ES",
+            "cap_group": "mid",
+            "from_date": "2025-03-24",
+            "to_date": "current"
+        },
+        {
+            "query": "Marks Spencer",
+            "alt_queries": [],
+            "ticker": "MKS.L",
+            "name": "Marks & Spencer",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "mBank Poland",
+            "alt_queries": [
+                "mBank"
+            ],
+            "ticker": "MBK.WA",
+            "name": "mBank",
+            "type": "company",
+            "sector": "Financials",
+            "country": "PL",
+            "cap_group": "mid",
+            "from_date": "2025-06-23",
+            "to_date": "current"
+        },
+        {
+            "query": "Mediobanca",
+            "alt_queries": [],
+            "ticker": "MDBI.MI",
+            "name": "Mediobanca",
+            "type": "company",
+            "sector": "Financials",
+            "country": "IT",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Melrose Industries",
+            "alt_queries": [],
+            "ticker": "MRO.L",
+            "name": "Melrose Industries",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Metso",
+            "alt_queries": [],
+            "ticker": "METSO.HE",
+            "name": "Metso Outotec",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "FI",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Mobimo",
+            "alt_queries": [
+                "Mobimo Swiss real estate"
+            ],
+            "ticker": "MOBN.S",
+            "name": "Mobimo Holding",
+            "type": "company",
+            "sector": "Real Estate",
+            "country": "CH",
+            "cap_group": "mid",
+            "from_date": "2025-06-23",
+            "to_date": "current"
+        },
+        {
+            "query": "Mowi",
+            "alt_queries": [],
+            "ticker": "MOWI.OL",
+            "name": "Mowi ASA",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "NO",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Munters Group",
+            "alt_queries": [],
+            "ticker": "MTRS.ST",
+            "name": "Munters Group AB",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2024-06-24",
+            "to_date": "2025-03-24"
+        },
+        {
+            "query": "Mycronic",
+            "alt_queries": [
+                "Mycronic semiconductor"
+            ],
+            "ticker": "MYCR.ST",
+            "name": "Mycronic",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2024-06-24",
+            "to_date": "current"
+        },
+        {
+            "query": "Nemetschek",
+            "alt_queries": [],
+            "ticker": "NEMG.DE",
+            "name": "Nemetschek SE",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Neoen",
+            "alt_queries": [
+                "Neoen renewable energy"
+            ],
+            "ticker": "NEOEN.PA",
+            "name": "Neoen SA",
+            "type": "company",
+            "sector": "Utilities",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-06-24",
+            "to_date": "2025-03-24"
+        },
+        {
+            "query": "Nexans",
+            "alt_queries": [],
+            "ticker": "NEX.PA",
+            "name": "Nexans SA",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Next plc",
+            "alt_queries": [],
+            "ticker": "NXT.L",
+            "name": "Next plc",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Nordex",
+            "alt_queries": [
+                "Nordex wind turbine"
+            ],
+            "ticker": "NDXG.DE",
+            "name": "Nordex",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2025-09-22",
+            "to_date": "current"
+        },
+        {
+            "query": "Ocado",
+            "alt_queries": [
+                "Ocado grocery UK"
+            ],
+            "ticker": "OCDO.L",
+            "name": "Ocado",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-12-22"
+        },
+        {
+            "query": "OCI NV",
+            "alt_queries": [
+                "OCI nitrogen"
+            ],
+            "ticker": "OCI.AS",
+            "name": "OCI",
+            "type": "company",
+            "sector": "Materials",
+            "country": "NL",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2024-12-23"
+        },
+        {
+            "query": "OPAP",
+            "alt_queries": [],
+            "ticker": "OPAp.AT",
+            "name": "OPAP SA",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "GR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Orkla",
+            "alt_queries": [],
+            "ticker": "ORK.OL",
+            "name": "Orkla ASA",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "NO",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Pandora",
+            "alt_queries": [],
+            "ticker": "PNDORA.CO",
+            "name": "Pandora A/S",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "DK",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Pearson",
+            "alt_queries": [],
+            "ticker": "PSON.L",
+            "name": "Pearson plc",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Persimmon",
+            "alt_queries": [],
+            "ticker": "PSN.L",
+            "name": "Persimmon plc",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "PKO Bank Polski",
+            "alt_queries": [],
+            "ticker": "PKO.WA",
+            "name": "PKO Bank Polski",
+            "type": "company",
+            "sector": "Financials",
+            "country": "PL",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Playtech",
+            "alt_queries": [
+                "Playtech gaming"
+            ],
+            "ticker": "PTEC.L",
+            "name": "Playtech",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-12-23",
+            "to_date": "2025-06-23"
+        },
+        {
+            "query": "Puig",
+            "alt_queries": [
+                "Puig Brands beauty"
+            ],
+            "ticker": "PUIG.MC",
+            "name": "Puig Brands B",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "ES",
+            "cap_group": "mid",
+            "from_date": "2024-09-23",
+            "to_date": "current"
+        },
+        {
+            "query": "Puma",
+            "alt_queries": [],
+            "ticker": "PUMG.DE",
+            "name": "Puma SE",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "PZU Group",
+            "alt_queries": [],
+            "ticker": "PZU.WA",
+            "name": "PZU SA",
+            "type": "company",
+            "sector": "Financials",
+            "country": "PL",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Qiagen",
+            "alt_queries": [],
+            "ticker": "QIAG.DE",
+            "name": "Qiagen NV",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Quilter",
+            "alt_queries": [
+                "Quilter wealth UK"
+            ],
+            "ticker": "QLT.L",
+            "name": "Quilter",
+            "type": "company",
+            "sector": "Financials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2025-12-22",
+            "to_date": "current"
+        },
+        {
+            "query": "Recordati",
+            "alt_queries": [],
+            "ticker": "RECF.MI",
+            "name": "Recordati SpA",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "IT",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Red Electrica",
+            "alt_queries": [
+                "REE Spain"
+            ],
+            "ticker": "REE.MC",
+            "name": "Red Eléctrica",
+            "type": "company",
+            "sector": "Utilities",
+            "country": "ES",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Redcare Pharmacy",
+            "alt_queries": [
+                "Redcare online pharmacy"
+            ],
+            "ticker": "RDC.DE",
+            "name": "Redcare Pharmacy",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-12-23",
+            "to_date": "2025-09-22"
+        },
+        {
+            "query": "Rexel",
+            "alt_queries": [],
+            "ticker": "RXL.PA",
+            "name": "Rexel SA",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Rightmove",
+            "alt_queries": [],
+            "ticker": "RMV.L",
+            "name": "Rightmove plc",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Rockwool",
+            "alt_queries": [],
+            "ticker": "ROCKB.CO",
+            "name": "Rockwool International",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DK",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Remy Cointreau",
+            "alt_queries": [],
+            "ticker": "RCO.PA",
+            "name": "Rémy Cointreau",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Safestore",
+            "alt_queries": [
+                "Safestore self storage UK"
+            ],
+            "ticker": "SAFE.L",
+            "name": "Safestore Holdings",
+            "type": "company",
+            "sector": "Real Estate",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-06-23"
+        },
+        {
+            "query": "Salmar",
+            "alt_queries": [],
+            "ticker": "SALM.OL",
+            "name": "SalMar ASA",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "NO",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "SBM Offshore",
+            "alt_queries": [
+                "SBM FPSO"
+            ],
+            "ticker": "SBMO.AS",
+            "name": "SBM Offshore",
+            "type": "company",
+            "sector": "Energy",
+            "country": "NL",
+            "cap_group": "mid",
+            "from_date": "2025-03-24",
+            "to_date": "current"
+        },
+        {
+            "query": "Schibsted",
+            "alt_queries": [],
+            "ticker": "SCHB.OL",
+            "name": "Schibsted ASA",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "NO",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Schindler",
+            "alt_queries": [],
+            "ticker": "SCHP.S",
+            "name": "Schindler Group",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "CH",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Scout24",
+            "alt_queries": [],
+            "ticker": "G24.DE",
+            "name": "Scout24 AG",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "SEB Group",
+            "alt_queries": [
+                "SEB France cookware"
+            ],
+            "ticker": "SEBF.PA",
+            "name": "SEB",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-12-22"
+        },
+        {
+            "query": "SES SA",
+            "alt_queries": [
+                "SES satellite"
+            ],
+            "ticker": "SESFD.PA",
+            "name": "SES",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "LU",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2024-12-23"
+        },
+        {
+            "query": "Shaftesbury Capital",
+            "alt_queries": [
+                "Shaftesbury REIT London"
+            ],
+            "ticker": "SHCS.L",
+            "name": "Shaftesbury Capital",
+            "type": "company",
+            "sector": "Real Estate",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-09-23",
+            "to_date": "current"
+        },
+        {
+            "query": "SKF",
+            "alt_queries": [],
+            "ticker": "SKFb.ST",
+            "name": "SKF B",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Smiths Group",
+            "alt_queries": [],
+            "ticker": "SMIN.L",
+            "name": "Smiths Group",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Sodexo",
+            "alt_queries": [],
+            "ticker": "EXHO.PA",
+            "name": "Sodexo SA",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Soitec",
+            "alt_queries": [
+                "Soitec semiconductor"
+            ],
+            "ticker": "SOIT.PA",
+            "name": "Soitec",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-03-24"
+        },
+        {
+            "query": "Solvay",
+            "alt_queries": [],
+            "ticker": "SOLB.BR",
+            "name": "Solvay SA",
+            "type": "company",
+            "sector": "Materials",
+            "country": "BE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Sonova",
+            "alt_queries": [],
+            "ticker": "SOON.S",
+            "name": "Sonova Holding",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "CH",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "SpareBank Sor Norge",
+            "alt_queries": [
+                "SpareBank 1 SMN"
+            ],
+            "ticker": "SB1NO.OL",
+            "name": "Sparebank 1 Sor-Norge",
+            "type": "company",
+            "sector": "Financials",
+            "country": "NO",
+            "cap_group": "mid",
+            "from_date": "2024-12-23",
+            "to_date": "current"
+        },
+        {
+            "query": "Spectris",
+            "alt_queries": [],
+            "ticker": "SXS.L",
+            "name": "Spectris plc",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "SSAB",
+            "alt_queries": [],
+            "ticker": "SSABa.ST",
+            "name": "SSAB A",
+            "type": "company",
+            "sector": "Materials",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "SSE plc",
+            "alt_queries": [],
+            "ticker": "SSE.L",
+            "name": "SSE plc",
+            "type": "company",
+            "sector": "Utilities",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "St James Place",
+            "alt_queries": [],
+            "ticker": "SJP.L",
+            "name": "St. James's Place",
+            "type": "company",
+            "sector": "Financials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Storebrand",
+            "alt_queries": [],
+            "ticker": "STB.OL",
+            "name": "Storebrand ASA",
+            "type": "company",
+            "sector": "Financials",
+            "country": "NO",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Straumann",
+            "alt_queries": [],
+            "ticker": "STMN.S",
+            "name": "Straumann Group",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "CH",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Sunrise Communications",
+            "alt_queries": [
+                "Sunrise UPC Switzerland"
+            ],
+            "ticker": "SUNN.S",
+            "name": "Sunrise N",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "CH",
+            "cap_group": "mid",
+            "from_date": "2025-03-24",
+            "to_date": "current"
+        },
+        {
+            "query": "Syensqo",
+            "alt_queries": [],
+            "ticker": "SYENS.BR",
+            "name": "Syensqo SA",
+            "type": "company",
+            "sector": "Materials",
+            "country": "BE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Symrise",
+            "alt_queries": [],
+            "ticker": "SY1G.DE",
+            "name": "Symrise AG",
+            "type": "company",
+            "sector": "Materials",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Talanx",
+            "alt_queries": [],
+            "ticker": "TLX.DE",
+            "name": "Talanx AG",
+            "type": "company",
+            "sector": "Financials",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Tate Lyle",
+            "alt_queries": [
+                "Tate and Lyle"
+            ],
+            "ticker": "TATE.L",
+            "name": "Tate & Lyle",
+            "type": "company",
+            "sector": "Consumer Staples",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-12-22"
+        },
+        {
+            "query": "Taylor Wimpey",
+            "alt_queries": [],
+            "ticker": "TW.L",
+            "name": "Taylor Wimpey",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "TBC Bank",
+            "alt_queries": [
+                "TBC Bank Georgia"
+            ],
+            "ticker": "TBCG.L",
+            "name": "TBC Bank Group",
+            "type": "company",
+            "sector": "Financials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2025-03-24",
+            "to_date": "current"
+        },
+        {
+            "query": "Tele2",
+            "alt_queries": [],
+            "ticker": "TEL2b.ST",
+            "name": "Tele2 B",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Telecom Italia",
+            "alt_queries": [],
+            "ticker": "TLIT.MI",
+            "name": "Telecom Italia",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "IT",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Teleperformance",
+            "alt_queries": [],
+            "ticker": "TEPRF.PA",
+            "name": "Teleperformance SE",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Temenos",
+            "alt_queries": [],
+            "ticker": "TEMN.S",
+            "name": "Temenos AG",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "CH",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Thyssenkrupp",
+            "alt_queries": [],
+            "ticker": "TKAG.DE",
+            "name": "Thyssenkrupp",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2024-09-23"
+        },
+        {
+            "query": "TietoEVRY",
+            "alt_queries": [
+                "Tietoevry IT Finland"
+            ],
+            "ticker": "TIETO.HE",
+            "name": "Tietoevry",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "FI",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-06-23"
+        },
+        {
+            "query": "Tomra Systems",
+            "alt_queries": [],
+            "ticker": "TOM.OL",
+            "name": "Tomra Systems",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "NO",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "TP ICAP",
+            "alt_queries": [
+                "TPICAP broker"
+            ],
+            "ticker": "TCAPI.L",
+            "name": "TP ICAP",
+            "type": "company",
+            "sector": "Financials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-12-23",
+            "to_date": "current"
+        },
+        {
+            "query": "Travis Perkins",
+            "alt_queries": [
+                "Travis Perkins building materials"
+            ],
+            "ticker": "TPK.L",
+            "name": "Travis Perkins",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-03-24"
+        },
+        {
+            "query": "Trelleborg",
+            "alt_queries": [],
+            "ticker": "TREBb.ST",
+            "name": "Trelleborg B",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Tryg",
+            "alt_queries": [],
+            "ticker": "TRYG.CO",
+            "name": "Tryg A/S",
+            "type": "company",
+            "sector": "Financials",
+            "country": "DK",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "TUI",
+            "alt_queries": [],
+            "ticker": "TUI.DE",
+            "name": "TUI",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-06-24",
+            "to_date": "current"
+        },
+        {
+            "query": "Ubisoft Entertainment",
+            "alt_queries": [],
+            "ticker": "UBIP.PA",
+            "name": "Ubisoft Entertainment",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2024-09-23"
+        },
+        {
+            "query": "Umicore",
+            "alt_queries": [
+                "Umicore battery materials"
+            ],
+            "ticker": "UMI.BR",
+            "name": "Umicore",
+            "type": "company",
+            "sector": "Materials",
+            "country": "BE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-03-24"
+        },
+        {
+            "query": "Unicaja",
+            "alt_queries": [
+                "Unicaja Banco Spain"
+            ],
+            "ticker": "UNI.MC",
+            "name": "Unicaja Banco",
+            "type": "company",
+            "sector": "Financials",
+            "country": "ES",
+            "cap_group": "mid",
+            "from_date": "2025-09-22",
+            "to_date": "current"
+        },
+        {
+            "query": "Valeo",
+            "alt_queries": [],
+            "ticker": "VLOF.PA",
+            "name": "Valeo SA",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Var Energi",
+            "alt_queries": [],
+            "ticker": "VAR.OL",
+            "name": "Var Energi",
+            "type": "company",
+            "sector": "Energy",
+            "country": "NO",
+            "cap_group": "mid",
+            "from_date": "2024-06-24",
+            "to_date": "current"
+        },
+        {
+            "query": "VAT Group",
+            "alt_queries": [],
+            "ticker": "VACN.S",
+            "name": "VAT Group AG",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "CH",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Verallia",
+            "alt_queries": [
+                "Verallia glass packaging"
+            ],
+            "ticker": "VRLA.PA",
+            "name": "Verallia",
+            "type": "company",
+            "sector": "Materials",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2025-09-22"
+        },
+        {
+            "query": "Verbund",
+            "alt_queries": [],
+            "ticker": "VERB.VI",
+            "name": "Verbund AG",
+            "type": "company",
+            "sector": "Utilities",
+            "country": "AT",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Verisure",
+            "alt_queries": [
+                "Verisure security alarm"
+            ],
+            "ticker": "VSURE.ST",
+            "name": "Verisure",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2025-12-22",
+            "to_date": "current"
+        },
+        {
+            "query": "Vienna Insurance Group",
+            "alt_queries": [],
+            "ticker": "VIG.VI",
+            "name": "Vienna Insurance Group",
+            "type": "company",
+            "sector": "Financials",
+            "country": "AT",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Volvo Cars",
+            "alt_queries": [
+                "Volvo Car Group"
+            ],
+            "ticker": "VOLCARB.ST",
+            "name": "Volvo Car B",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "SE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2024-12-23"
+        },
+        {
+            "query": "Vonovia",
+            "alt_queries": [],
+            "ticker": "VNAn.DE",
+            "name": "Vonovia SE",
+            "type": "company",
+            "sector": "Real Estate",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Royal Vopak",
+            "alt_queries": [
+                "Vopak tank storage"
+            ],
+            "ticker": "VOPA.AS",
+            "name": "Vopak",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "NL",
+            "cap_group": "mid",
+            "from_date": "2024-12-23",
+            "to_date": "current"
+        },
+        {
+            "query": "VZ Holding",
+            "alt_queries": [
+                "VZ Finanzportal Switzerland"
+            ],
+            "ticker": "VZN.S",
+            "name": "VZ Holding",
+            "type": "company",
+            "sector": "Financials",
+            "country": "CH",
+            "cap_group": "mid",
+            "from_date": "2024-12-23",
+            "to_date": "current"
+        },
+        {
+            "query": "Wacker Chemie AG",
+            "alt_queries": [
+                "Wacker AG"
+            ],
+            "ticker": "WCHG.DE",
+            "name": "Wacker Chemie",
+            "type": "company",
+            "sector": "Materials",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2024-12-23"
+        },
+        {
+            "query": "Weir Group",
+            "alt_queries": [],
+            "ticker": "WEIR.L",
+            "name": "Weir Group",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Wendel",
+            "alt_queries": [],
+            "ticker": "MF.PA",
+            "name": "Wendel SE",
+            "type": "company",
+            "sector": "Financials",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Whitbread",
+            "alt_queries": [],
+            "ticker": "WTB.L",
+            "name": "Whitbread plc",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Worldline",
+            "alt_queries": [
+                "Worldline payment France"
+            ],
+            "ticker": "WLN.PA",
+            "name": "Worldline",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "FR",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "2024-12-23"
+        },
+        {
+            "query": "Wartsila",
+            "alt_queries": [
+                "Wartsila marine"
+            ],
+            "ticker": "WRT1V.HE",
+            "name": "Wärtsilä Oyj",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "FI",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Zalando",
+            "alt_queries": [],
+            "ticker": "ZALG.DE",
+            "name": "Zalando SE",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "DE",
+            "cap_group": "mid",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Zegona",
+            "alt_queries": [
+                "Zegona Vodafone Spain"
+            ],
+            "ticker": "ZEG.L",
+            "name": "Zegona Communications",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "GB",
+            "cap_group": "mid",
+            "from_date": "2025-09-22",
+            "to_date": "current"
+        },
+        {
+            "query": "Drax Group",
+            "alt_queries": [],
+            "ticker": "DRX.L",
+            "name": "Drax Group",
+            "type": "company",
+            "sector": "Utilities",
+            "country": "GB",
+            "cap_group": "small",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Draegerwerk",
+            "alt_queries": [
+                "Drager medical"
+            ],
+            "ticker": "DRWG.DE",
+            "name": "Drägerwerk AG",
+            "type": "company",
+            "sector": "Health Care",
+            "country": "DE",
+            "cap_group": "small",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Melia Hotels",
+            "alt_queries": [],
+            "ticker": "MEL.MC",
+            "name": "Meliá Hotels International",
+            "type": "company",
+            "sector": "Consumer Discretionary",
+            "country": "ES",
+            "cap_group": "small",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "ProSiebenSat1",
+            "alt_queries": [
+                "ProSieben"
+            ],
+            "ticker": "PSMGn.DE",
+            "name": "ProSiebenSat.1",
+            "type": "company",
+            "sector": "Communication Services",
+            "country": "DE",
+            "cap_group": "small",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Sacyr",
+            "alt_queries": [],
+            "ticker": "SCYR.MC",
+            "name": "Sacyr SA",
+            "type": "company",
+            "sector": "Industrials",
+            "country": "ES",
+            "cap_group": "small",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Spirent Communications",
+            "alt_queries": [],
+            "ticker": "SPT.L",
+            "name": "Spirent Communications",
+            "type": "company",
+            "sector": "Information Technology",
+            "country": "GB",
+            "cap_group": "small",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Trump tariff Europe",
+            "alt_queries": [
+                "Trump trade war EU",
+                "US tariffs European"
+            ],
+            "ticker": "MACRO_TRUMP_TARIFF",
+            "name": "Trump Tariffs / Trade War",
+            "type": "macro",
+            "sector": "Cross-Sector",
+            "country": "US",
+            "cap_group": "macro",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "ECB interest rate decision",
+            "alt_queries": [
+                "ECB monetary policy",
+                "Lagarde ECB rate"
+            ],
+            "ticker": "MACRO_ECB",
+            "name": "ECB Monetary Policy",
+            "type": "macro",
+            "sector": "Cross-Sector",
+            "country": "EU",
+            "cap_group": "macro",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Federal Reserve interest rate",
+            "alt_queries": [
+                "Fed rate decision",
+                "FOMC meeting",
+                "Powell Federal Reserve"
+            ],
+            "ticker": "MACRO_FED",
+            "name": "Fed Monetary Policy",
+            "type": "macro",
+            "sector": "Cross-Sector",
+            "country": "US",
+            "cap_group": "macro",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "European economy recession risk",
+            "alt_queries": [
+                "Eurozone GDP growth",
+                "Europe economic slowdown"
+            ],
+            "ticker": "MACRO_EU_ECONOMY",
+            "name": "European Economy Outlook",
+            "type": "macro",
+            "sector": "Cross-Sector",
+            "country": "EU",
+            "cap_group": "macro",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "Ukraine war energy Europe",
+            "alt_queries": [
+                "Russia sanctions Europe",
+                "European energy crisis"
+            ],
+            "ticker": "MACRO_GEOPOLITICS",
+            "name": "Ukraine / Energy Geopolitics",
+            "type": "macro",
+            "sector": "Energy",
+            "country": "EU",
+            "cap_group": "macro",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "China semiconductor export ban",
+            "alt_queries": [
+                "US China tech war",
+                "chip export restrictions China"
+            ],
+            "ticker": "MACRO_CHINA_TECH",
+            "name": "China Tech Decoupling",
+            "type": "macro",
+            "sector": "Information Technology",
+            "country": "CN",
+            "cap_group": "macro",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "European auto industry crisis",
+            "alt_queries": [
+                "EU automotive tariffs",
+                "European car sales decline"
+            ],
+            "ticker": "MACRO_AUTO",
+            "name": "European Auto Crisis",
+            "type": "macro",
+            "sector": "Consumer Discretionary",
+            "country": "EU",
+            "cap_group": "macro",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "AI artificial intelligence stocks",
+            "alt_queries": [
+                "AI investment rally",
+                "artificial intelligence market"
+            ],
+            "ticker": "MACRO_AI",
+            "name": "AI Hype / Tech Rally",
+            "type": "macro",
+            "sector": "Information Technology",
+            "country": "GL",
+            "cap_group": "macro",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "STOXX Europe 600",
+            "alt_queries": [
+                "European stock market",
+                "Euro Stoxx index"
+            ],
+            "ticker": "MACRO_INDEX",
+            "name": "European Market Sentiment",
+            "type": "macro",
+            "sector": "Market-Wide",
+            "country": "EU",
+            "cap_group": "macro",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        },
+        {
+            "query": "EU AI Act regulation",
+            "alt_queries": [
+                "European Union technology regulation"
+            ],
+            "ticker": "MACRO_REGULATION",
+            "name": "EU Tech Regulation",
+            "type": "macro",
+            "sector": "Information Technology",
+            "country": "EU",
+            "cap_group": "macro",
+            "from_date": "2024-08-01",
+            "to_date": "current"
+        }
+    ]
+}

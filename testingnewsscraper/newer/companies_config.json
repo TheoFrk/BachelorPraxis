@@ -1,0 +1,165 @@
+{
+    "_meta": {
+        "description": "Index component + macro event configuration for GDELT downloader",
+        "version": "2.0",
+        "last_updated": "2025-02-14",
+        "instructions": [
+            "type: 'company' = firm-level news, 'macro' = market-wide events",
+            "from_date / to_date: when this entry is active (for index composition changes)",
+            "to_date: 'current' means still active today",
+            "alt_queries: additional GDELT search terms for better recall",
+            "",
+            "HOW TO ADD A NEW COMPANY: Copy any company block, change query/ticker/name/dates",
+            "HOW TO HANDLE INDEX CHANGES:",
+            "  Company leaves → set to_date to exit date (e.g. '2024-12-20')",
+            "  Company joins  → set from_date to entry date (e.g. '2025-03-24')",
+            "GENERATE FROM CSV: python3 generate_config.py --input constituents.csv --output config.json"
+        ]
+    },
+    "index": "STOXX Europe 600",
+    "data_start": "2024-08-01",
+    "data_end": "2025-12-31",
+    "companies": [
+        {
+            "query": "ASML", "alt_queries": ["ASML Holding"],
+            "ticker": "ASML.AS", "name": "ASML Holding", "type": "company",
+            "sector": "Information Technology", "country": "NL", "cap_group": "large",
+            "from_date": "2024-08-01", "to_date": "current"
+        },
+        {
+            "query": "SAP SE", "alt_queries": ["SAP"],
+            "ticker": "SAP.DE", "name": "SAP SE", "type": "company",
+            "sector": "Information Technology", "country": "DE", "cap_group": "large",
+            "from_date": "2024-08-01", "to_date": "current"
+        },
+        {
+            "query": "LVMH", "alt_queries": ["Louis Vuitton", "Moet Hennessy"],
+            "ticker": "MC.PA", "name": "LVMH", "type": "company",
+            "sector": "Consumer Discretionary", "country": "FR", "cap_group": "large",
+            "from_date": "2024-08-01", "to_date": "current"
+        },
+        {
+            "query": "Siemens AG", "alt_queries": ["Siemens"],
+            "ticker": "SIE.DE", "name": "Siemens", "type": "company",
+            "sector": "Industrials", "country": "DE", "cap_group": "large",
+            "from_date": "2024-08-01", "to_date": "current"
+        },
+        {
+            "query": "TotalEnergies", "alt_queries": ["Total Energies"],
+            "ticker": "TTE.PA", "name": "TotalEnergies", "type": "company",
+            "sector": "Energy", "country": "FR", "cap_group": "large",
+            "from_date": "2024-08-01", "to_date": "current"
+        },
+        {
+            "query": "Allianz", "alt_queries": ["Allianz SE"],
+            "ticker": "ALV.DE", "name": "Allianz", "type": "company",
+            "sector": "Financials", "country": "DE", "cap_group": "large",
+            "from_date": "2024-08-01", "to_date": "current"
+        },
+        {
+            "query": "Volkswagen", "alt_queries": ["VW"],
+            "ticker": "VOW3.DE", "name": "Volkswagen", "type": "company",
+            "sector": "Consumer Discretionary", "country": "DE", "cap_group": "large",
+            "from_date": "2024-08-01", "to_date": "current"
+        },
+        {
+            "query": "Airbus", "alt_queries": [],
+            "ticker": "AIR.PA", "name": "Airbus", "type": "company",
+            "sector": "Industrials", "country": "NL", "cap_group": "large",
+            "from_date": "2024-08-01", "to_date": "current"
+        },
+        {
+            "_comment": "=== EXAMPLE: LEFT the index in Dec 2024 ===",
+            "query": "Worldline", "alt_queries": [],
+            "ticker": "WLN.PA", "name": "Worldline", "type": "company",
+            "sector": "Information Technology", "country": "FR", "cap_group": "mid",
+            "from_date": "2024-08-01", "to_date": "2024-12-20"
+        },
+        {
+            "_comment": "=== EXAMPLE: JOINED the index in Sep 2024 ===",
+            "query": "Galderma", "alt_queries": ["Galderma Group"],
+            "ticker": "GALD.SW", "name": "Galderma", "type": "company",
+            "sector": "Health Care", "country": "CH", "cap_group": "mid",
+            "from_date": "2024-09-23", "to_date": "current"
+        },
+
+        {
+            "_comment": "=== ADD YOUR REMAINING STOXX 600 COMPANIES BELOW ===",
+            "_comment2": "Use: python3 generate_config.py --input stoxx600.csv --output config.json"
+        },
+
+        {
+            "_comment": "========== MACRO / MARKET-WIDE EVENT QUERIES =========="
+        },
+        {
+            "query": "Trump tariff Europe",
+            "alt_queries": ["Trump trade war EU", "US tariffs European"],
+            "ticker": "MACRO_TRUMP_TARIFF", "name": "Trump Tariffs / Trade War", "type": "macro",
+            "sector": "Cross-Sector", "country": "US", "cap_group": "macro",
+            "from_date": "2024-08-01", "to_date": "current"
+        },
+        {
+            "query": "ECB interest rate decision",
+            "alt_queries": ["ECB monetary policy", "Lagarde ECB rate"],
+            "ticker": "MACRO_ECB", "name": "ECB Monetary Policy", "type": "macro",
+            "sector": "Cross-Sector", "country": "EU", "cap_group": "macro",
+            "from_date": "2024-08-01", "to_date": "current"
+        },
+        {
+            "query": "Federal Reserve interest rate",
+            "alt_queries": ["Fed rate decision", "FOMC meeting", "Powell Federal Reserve"],
+            "ticker": "MACRO_FED", "name": "Fed Monetary Policy", "type": "macro",
+            "sector": "Cross-Sector", "country": "US", "cap_group": "macro",
+            "from_date": "2024-08-01", "to_date": "current"
+        },
+        {
+            "query": "European economy recession risk",
+            "alt_queries": ["Eurozone GDP growth", "Europe economic slowdown"],
+            "ticker": "MACRO_EU_ECONOMY", "name": "European Economy Outlook", "type": "macro",
+            "sector": "Cross-Sector", "country": "EU", "cap_group": "macro",
+            "from_date": "2024-08-01", "to_date": "current"
+        },
+        {
+            "query": "Ukraine war energy Europe",
+            "alt_queries": ["Russia sanctions Europe", "European energy crisis"],
+            "ticker": "MACRO_GEOPOLITICS", "name": "Ukraine / Energy Geopolitics", "type": "macro",
+            "sector": "Energy", "country": "EU", "cap_group": "macro",
+            "from_date": "2024-08-01", "to_date": "current"
+        },
+        {
+            "query": "China semiconductor export ban",
+            "alt_queries": ["US China tech war", "chip export restrictions China"],
+            "ticker": "MACRO_CHINA_TECH", "name": "China Tech Decoupling", "type": "macro",
+            "sector": "Information Technology", "country": "CN", "cap_group": "macro",
+            "from_date": "2024-08-01", "to_date": "current"
+        },
+        {
+            "query": "European auto industry crisis",
+            "alt_queries": ["EU automotive tariffs", "European car sales decline"],
+            "ticker": "MACRO_AUTO", "name": "European Auto Crisis", "type": "macro",
+            "sector": "Consumer Discretionary", "country": "EU", "cap_group": "macro",
+            "from_date": "2024-08-01", "to_date": "current"
+        },
+        {
+            "query": "AI artificial intelligence stocks",
+            "alt_queries": ["AI investment rally", "artificial intelligence market"],
+            "ticker": "MACRO_AI", "name": "AI Hype / Tech Rally", "type": "macro",
+            "sector": "Information Technology", "country": "GL", "cap_group": "macro",
+            "from_date": "2024-08-01", "to_date": "current"
+        },
+        {
+            "query": "STOXX Europe 600",
+            "alt_queries": ["European stock market", "Euro Stoxx index"],
+            "ticker": "MACRO_INDEX", "name": "European Market Sentiment", "type": "macro",
+            "sector": "Market-Wide", "country": "EU", "cap_group": "macro",
+            "from_date": "2024-08-01", "to_date": "current"
+        },
+        {
+            "query": "EU AI Act regulation",
+            "alt_queries": ["European Union technology regulation"],
+            "ticker": "MACRO_REGULATION", "name": "EU Tech Regulation", "type": "macro",
+            "sector": "Information Technology", "country": "EU", "cap_group": "macro",
+            "from_date": "2024-08-01", "to_date": "current"
+        }
+    ]
+}
