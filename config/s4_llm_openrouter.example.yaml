@@ -1,0 +1,103 @@
+openrouter:
+  base_url: "https://openrouter.ai/api/v1"
+  chat_completions_path: "/chat/completions"
+
+  # Empfohlen: API-Key nicht direkt in die Datei schreiben, sondern ueber Environment Variable.
+  api_key_env: "OPENROUTER_API_KEY"
+
+  # Optional moeglich, aber nicht empfohlen:
+  api_key: null
+
+  # Optional fuer OpenRouter-App-Attribution:
+  http_referer: null
+  app_title: "Bachelorarbeit S4 LLM Backtest"
+
+models:
+  # Einheitliches Scoring-Modell fuer alle S4-Varianten.
+  # Wenn null, wird bei aktivem Single-Scoring llm_only_model oder hybrid_model verwendet.
+  scoring_model: null
+
+  # Hauptmodell fuer LLM-only.
+  llm_only_model: "DEIN_OPENROUTER_MODELL_HIER"
+
+  # Hauptmodell fuer Hybrid. Standardmaessig identisch, aber separat konfigurierbar.
+  hybrid_model: "DEIN_OPENROUTER_MODELL_HIER"
+
+  # Optionaler Fallback, falls das Hauptmodell fehlschlaegt.
+  fallback_models: []
+
+architecture:
+  # Empfohlen: Der LLM scored jeden Artikel nur einmal; LLM-only und Hybrid
+  # werden anschliessend lokal aus demselben LLM-Score abgeleitet.
+  single_llm_score_for_all_variants: true
+  allow_distinct_models_for_variants: false
+
+request:
+  temperature: 0.0
+  top_p: 1.0
+  max_tokens: 3500
+  timeout_seconds: 60
+  max_retries: 1
+  retry_sleep_seconds: 3
+  request_batch_size: 32
+  max_concurrent_requests: 8
+  progress_every_batches: 25
+  singleton_repair: false
+  retry_missing_after_initial: false
+
+  # S4 soll bevorzugt JSON Schema / Structured Output verwenden.
+  response_format_mode: "json_schema"
+  include_reasoning: false
+  reasoning:
+    exclude: true
+
+scoring:
+  prompt_version: "s4_llm_v2"
+  prompt_mode: "full"
+  max_chars_per_article: 3000
+  min_event_stocks_for_zscore: 5
+  fallback_raw_score_scale: 0.50
+  z_clip: 3.0
+  neutral_fill_value: 0.0
+
+  # Haupt-Hybrid fuer Vergleichbarkeit mit S2/S3:
+  hybrid_weight_s1: 0.5
+  hybrid_weight_llm: 0.5
+
+  # Zusaetzliche Robustheit, weil S3 den starken S1-Score verwaessert hat:
+  include_shrinkage_hybrid: true
+  shrinkage_weight_s1: 0.7
+  shrinkage_weight_llm: 0.3
+
+backtest:
+  top_pct: 0.20
+  coverage_threshold: 0.80
+  security_news_coverage_threshold: 0.0
+  cost_bps: [5, 10, 25]
+
+data:
+  input_db_candidates:
+    - "DATA/thesis_data v2.sqlite"
+    - "DATA/thesis_data.sqlite"
+
+  input_s1_results_db: "outputs/results/s1_revised_results.sqlite"
+  input_s2_results_db: "outputs/results/s2_lexicon_results.sqlite"
+  input_s3_results_db: "outputs/results/s3_finbert_results.sqlite"
+
+  output_db: "outputs/results/s4_llm_results.sqlite"
+  score_cache_db: "outputs/cache/s4_llm_score_cache.sqlite"
+  output_dir: "outputs"
+
+  text_cols:
+    - "title"
+
+  allow_text_cols_if_available:
+    - "summary"
+    - "body"
+    - "description"
+
+  exclude_text_cols:
+    - "url"
+    - "domain"
+    - "publication_date"
+    - "publication_ts_utc"
