@@ -1,0 +1,6 @@
+stage,label,target_securities,target_secondary,target_note,target_source,news_articles,news_secondary,news_note,news_source,share_positions_with_news,share_source,warnings
+s1,S1,568.0,292.0,Preisuniversum; Marker zeigt Common-News-Universum,s1_universe_summary / s1_coverage_by_date,,,kein Textsignal in S1,methodisch nicht anwendbar,,nicht verfügbar,
+s2,S2,292.0,,,s2_run_metadata / s2_model_comparison_summary,267577.0,,,s2_lexicon_article_scores / s2_run_metadata,0.476574646265709,s2_model_comparison_summary,
+s3,S3,291.0,,,s3_run_metadata / s3_model_comparison_summary,267577.0,517072.0,Balken: nach English-Filter; Marker: Gesamt-News,s3_run_metadata,0.563757837956244,s3_model_comparison_summary,
+s4_en,S4 EN,287.0,,,s4_model_comparison_summary,267577.0,,LLM-Scoring OK/Cache: 243.002,s4_run_metadata,0.300879397021145,s4_model_comparison_summary,
+s4_multi,S4 MULTI,287.0,,,s4_model_comparison_summary,517072.0,,API-Fails im Cache: 174.926,s4_run_metadata,0.342746731127349,s4_model_comparison_summary,

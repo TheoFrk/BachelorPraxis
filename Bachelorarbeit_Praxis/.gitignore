@@ -1,0 +1,7 @@
+*.pyc
+.DS_Store
+__pycache__/
+
+config/s4_llm_openrouter.yaml
+outputs/cache/s4_llm_score_cache.sqlite
+outputs/cache/s4_llm_score_cache.sqlite-*

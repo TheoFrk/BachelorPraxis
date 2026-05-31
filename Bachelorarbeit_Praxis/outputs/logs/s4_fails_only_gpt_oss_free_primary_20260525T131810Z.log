@@ -1,0 +1,3 @@
+S4 scoring progress: batches_done=1, this_batch_ok=8, this_batch_fail=0, elapsed_min=0.4, batch_size=8, max_workers=8
+S4 scoring progress: batches_done=10, this_batch_ok=0, this_batch_fail=8, elapsed_min=1.7, batch_size=8, max_workers=8
+S4 scoring progress: batches_done=20, this_batch_ok=0, this_batch_fail=8, elapsed_min=2.4, batch_size=8, max_workers=8

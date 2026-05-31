@@ -1,0 +1,4 @@
+S4 llm backtest completed.
+output_db: /Users/theo_frk/Library/Mobile Documents/com~apple~CloudDocs/Study/Literatur und Informationen/Betriebliches Ressourcenmanagment/Bachelor/Bachelorarbeit_Praxis/outputs/results/s4_llm_preview_en_partial.sqlite
+row_counts: {'s4_run_metadata': 46, 's4_llm_article_scores': 74335, 's4_llm_daily_scores': 5311, 's4_backtest_panel': 271618, 's4_positions': 106832, 's4_daily_returns': 8728, 's4_metrics': 20, 's4_validation_checks': 40}
+validation_counts: {'PASS': 40}
