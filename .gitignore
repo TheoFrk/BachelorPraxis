@@ -5,3 +5,14 @@ __pycache__/
 config/s4_llm_openrouter.yaml
 outputs/cache/s4_llm_score_cache.sqlite
 outputs/cache/s4_llm_score_cache.sqlite-*
+
+# Application runtime, credentials and build artifacts
+.env
+.env.*
+!.env.example
+var/
+frontend/node_modules/
+frontend/dist/
+.pytest_cache/
+*.egg-info/
+.venv/

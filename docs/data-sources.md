@@ -1,0 +1,16 @@
+# Quellen und Nutzung
+
+| Quelle | Implementierung / Frequenz | Bedeutung und Nutzung |
+| --- | --- | --- |
+| [BachelorPraxis](https://github.com/TheoFrk/BachelorPraxis) | Read-only `s1_price_panel_scored` aus Git LFS; manueller Import | Historische Forschung. Die ursprünglichen Datenrechte werden durch die neue Anwendung nicht erweitert. Keine Weitergabe als frei lizenzierter Marktdatenbestand behauptet. |
+| [World Bank Commodity Markets](https://www.worldbank.org/en/research/commodity-markets) | Offizielles aktuelles Monthly-Workbook, Gold/Cocoa, abgeschlossene Monate | Monatsmittel nominaler Referenzpreise. Kein Tickfeed. [Datennutzungsbedingungen](https://www.worldbank.org/en/about/legal/terms-of-use-for-datasets) beachten. URL der Quelle bleibt am Instrument, Quelle und Importzeit an jeder Beobachtung. |
+| [Open-Meteo Historical Weather API](https://open-meteo.com/en/docs/historical-weather-api) | ERA5, zwei feste Punkte, vergangene 30 Tage bis heute−7 | Reanalyse, keine lokale Wetterstation. Abgeleitete Summen/Schwellen sind eigene Transformationen. [CC BY 4.0 und Attribution](https://open-meteo.com/en/licence) in der Wetteransicht. Der freie API-Zugang hat [Nutzungsbedingungen](https://open-meteo.com/en/terms); für kommerziellen Betrieb einen passenden Vertrag/Service bereitstellen. Der aktuelle Adapter nutzt den freien Archiv-Endpunkt. |
+| [GDELT DOC 2.0](https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/) | Zwei feste Suchabfragen, maximal 30 Artikel je Treiber, letzte 7 Tage | Medien-Suchtreffer, keine bestätigten Konfliktereignisse oder Original-GPR. Nur Titel/URL/Erfassung werden gespeichert; Artikelrechte liegen bei den Herausgebern. Verfügbarkeit nicht garantiert. |
+| [OpenStreetMap](https://www.openstreetmap.org/copyright) | Leaflet-Karte mit Standardkacheln, sichtbare Attribution | [Tile Usage Policy](https://operations.osmfoundation.org/policies/tiles/) beachten; kein Prefetch/Offlinebulk. Bei größerem kommerziellem Traffic geeigneten Tileprovider einsetzen. |
+| Eigene CSVs | Atomarer Import durch authentisierten Betreiber | Preise müssen passend lizenziert, mit korrekter Einheit/Währung/Frequenz und für aussagekräftige Equity-Renditen angemessen split-/dividendenbereinigt sein. Quelle wird abgefragt. |
+
+Katalogbeispiele sind keine Produktempfehlungen. `CC=F` ist eine providerabhängige kontinuierliche Reihe; rollbedingte Renditen sind ohne dokumentierte Methodik nicht als Spotrenditen interpretierbar. Der [ICE-Kakao-Kontrakt](https://www.ice.com/products/7/Cocoa-Futures) wird pro metrischer Tonne notiert; die World-Bank-Kakao-Referenz verwendet dagegen USD/kg. Diese Symbole/Einheiten werden nicht zusammengeführt.
+
+[iShares Physical Gold ETC](https://www.ishares.com/uk/individual/en/products/258441/ishares-physical-gold-etc-fund) ist als **ETC** erfasst, nicht als ETF. Der Londoner SGLN-Katalogeintrag verwendet GBp; CSV-Importe müssen die gewählte Notierungswährung/Einheit bestätigen. [SPDR S&P 500 ETF Trust](https://www.ssga.com/us/en/individual/etfs/spdr-sp-500-etf-trust-spy) wird als ETF erfasst. Ohne Holdings-Daten gibt es keine erfundene direkte Rohstoffexposition für breite Aktienfonds.
+
+Keine externen Daten oder Schlüssel werden ins Git-Repository aufgenommen. Automatische Abrufe erfolgen erst auf Anforderung oder über einen vom Betreiber eingerichteten Job.

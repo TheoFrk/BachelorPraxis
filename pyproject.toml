@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "securities-eye"
+version = "0.1.0"
+description = "Source-aware securities monitoring built on BachelorPraxis"
+requires-python = ">=3.12"
+dependencies = ["fastapi==0.141.1", "uvicorn==0.52.1", "httpx==0.28.1", "openpyxl==3.1.5"]
+
+[project.optional-dependencies]
+test = ["pytest==9.1.1", "httpx==0.28.1"]
+
+[project.scripts]
+securities-eye = "securities_eye.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["backend"]
+
+[tool.pytest.ini_options]
+pythonpath = ["backend"]
+testpaths = ["tests"]
